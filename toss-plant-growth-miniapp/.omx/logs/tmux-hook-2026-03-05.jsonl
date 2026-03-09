@@ -1,0 +1,4 @@
+{"timestamp":"2026-03-05T15:06:02.500Z","type":"worker_idle_notification","team":"replace-design-component-to-td","tmux_target":"%0","worker":"worker-2","prev_state":"unknown","task_id":null}
+{"timestamp":"2026-03-05T15:07:10.774Z","type":"worker_idle_notification","team":"replace-design-component-to-td","tmux_target":"%0","worker":"worker-1","prev_state":"unknown","task_id":null}
+{"timestamp":"2026-03-05T15:07:48.415Z","type":"worker_idle_notification","team":"replace-design-component-to-td","tmux_target":"%0","worker":"worker-3","prev_state":"unknown","task_id":null}
+{"timestamp":"2026-03-05T15:07:48.633Z","type":"all_workers_idle_notification","team":"replace-design-component-to-td","tmux_target":"%0","worker":"worker-3","worker_count":3}

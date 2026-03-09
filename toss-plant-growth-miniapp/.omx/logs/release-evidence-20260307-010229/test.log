@@ -1,0 +1,12 @@
+
+> test
+> jest --passWithNoTests
+
+PASS plant-growth-miniapp src/plants/store.slot.test.js
+PASS plant-growth-miniapp src/ads/pacing.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        0.325 s, estimated 1 s
+Ran all test suites.

@@ -1,0 +1,51 @@
+{
+  "name": "replace-design-component-to-td",
+  "task": "replace Design component to TDS component as much as possible and use agents review it is good UI/UX and good design enough to pass submission review",
+  "agent_type": "executor",
+  "worker_launch_mode": "interactive",
+  "worker_count": 3,
+  "max_workers": 20,
+  "workers": [
+    {
+      "name": "worker-1",
+      "index": 1,
+      "role": "executor",
+      "assigned_tasks": [],
+      "pane_id": "%5",
+      "worker_cli": "codex",
+      "working_dir": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp",
+      "team_state_root": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp/.omx/state"
+    },
+    {
+      "name": "worker-2",
+      "index": 2,
+      "role": "executor",
+      "assigned_tasks": [],
+      "pane_id": "%6",
+      "worker_cli": "codex",
+      "working_dir": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp",
+      "team_state_root": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp/.omx/state"
+    },
+    {
+      "name": "worker-3",
+      "index": 3,
+      "role": "executor",
+      "assigned_tasks": [],
+      "pane_id": "%7",
+      "worker_cli": "codex",
+      "working_dir": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp",
+      "team_state_root": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp/.omx/state"
+    }
+  ],
+  "created_at": "2026-03-05T15:02:40.535Z",
+  "tmux_session": "0:0",
+  "next_task_id": 1,
+  "leader_cwd": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp",
+  "team_state_root": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp/.omx/state",
+  "workspace_mode": "single",
+  "leader_pane_id": "%0",
+  "hud_pane_id": "%8",
+  "resize_hook_name": "omx_resize_replace-design-component-to-td_0_0_8",
+  "resize_hook_target": "0:0",
+  "next_worker_index": 4
+}

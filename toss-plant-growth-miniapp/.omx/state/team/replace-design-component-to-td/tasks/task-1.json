@@ -1,0 +1,11 @@
+{
+  "subject": "replace Design component to TDS component as much as possible",
+  "description": "replace Design component to TDS component as much as possible",
+  "status": "completed",
+  "owner": "worker-1",
+  "id": "1",
+  "depends_on": [],
+  "version": 3,
+  "created_at": "2026-03-05T15:02:40.537Z",
+  "completed_at": "2026-03-05T15:06:46.358Z"
+}

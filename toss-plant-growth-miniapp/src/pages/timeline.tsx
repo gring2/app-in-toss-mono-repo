@@ -1,11 +1,10 @@
 import { createRoute } from '@granite-js/react-native';
-import { Button } from '@toss/tds-react-native';
+import { Button, List, ListRow, Text, colors } from '@toss/tds-react-native';
 import React from 'react';
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { timelineCopy } from '../content/copy';
 import { usePlantGrowth } from '../hooks/usePlantGrowth';
 import { toDisplayImageUri } from '../plants/image';
-import { palette, radius, spacing, typography } from '../ui/theme';
 
 export const Route = createRoute('/timeline', {
   component: Page,
@@ -57,8 +56,12 @@ function Page() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          <Text style={styles.title}>{timelineCopy.unavailableTitle}</Text>
-          <Text style={styles.subtitle}>{timelineCopy.unavailableBody}</Text>
+          <Text typography="t3" fontWeight="bold">
+            {timelineCopy.unavailableTitle}
+          </Text>
+          <Text typography="t6" color={colors.grey600}>
+            {timelineCopy.unavailableBody}
+          </Text>
           <Button
             size="medium"
             display="block"
@@ -76,7 +79,9 @@ function Page() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          <Text style={styles.title}>{timelineCopy.preparingTitle}</Text>
+          <Text typography="t3" fontWeight="bold">
+            {timelineCopy.preparingTitle}
+          </Text>
           <Button
             size="medium"
             display="block"
@@ -93,16 +98,24 @@ function Page() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.title}>
+        <Text typography="t3" fontWeight="bold">
           {timelineCopy.pageTitle(activePlant.name)}
         </Text>
-        <Text style={styles.subtitle}>
-          {timelineCopy.pageSubtitle(
-            currentIndexSafe + 1,
-            orderedPhotos.length,
-            formatDateLabel(currentPhoto.capturedAt),
-          )}
-        </Text>
+
+        <List style={styles.panel} rowSeparator="none">
+          <ListRow
+            contents={
+              <ListRow.Texts
+                type="1RowTypeA"
+                top={timelineCopy.pageSubtitle(
+                  currentIndexSafe + 1,
+                  orderedPhotos.length,
+                  formatDateLabel(currentPhoto.capturedAt),
+                )}
+              />
+            }
+          />
+        </List>
 
         <Image
           source={{
@@ -136,10 +149,17 @@ function Page() {
         </View>
 
         {hasSeenEnd ? (
-          <View style={styles.endCard}>
-            <Text style={styles.endTitle}>{timelineCopy.endTitle}</Text>
-            <Text style={styles.endDescription}>{timelineCopy.endBody}</Text>
-          </View>
+          <List style={styles.panel} rowSeparator="none">
+            <ListRow
+              contents={
+                <ListRow.Texts
+                  type="2RowTypeA"
+                  top={timelineCopy.endTitle}
+                  bottom={timelineCopy.endBody}
+                />
+              }
+            />
+          </List>
         ) : null}
 
         <Button
@@ -160,55 +180,35 @@ function Page() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: palette.cream,
+    backgroundColor: colors.background,
   },
   container: {
     flex: 1,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.xl,
-    gap: spacing.sm,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    gap: 12,
   },
-  title: {
-    fontSize: typography.title,
-    fontWeight: '700',
-    color: palette.textPrimary,
-  },
-  subtitle: {
-    fontSize: typography.body,
-    color: palette.textSecondary,
+  panel: {
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.grey200,
+    backgroundColor: colors.background,
+    overflow: 'hidden',
   },
   timelineImage: {
     width: '100%',
     aspectRatio: 1,
-    borderRadius: radius.lg,
-    backgroundColor: palette.border,
+    borderRadius: 16,
+    backgroundColor: colors.grey100,
   },
   navigationRow: {
     flexDirection: 'row',
-    gap: spacing.xs,
+    gap: 8,
   },
   halfButton: {
     flex: 1,
   },
   fullButton: {
     width: '100%',
-  },
-  endCard: {
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: palette.rewardBorder,
-    backgroundColor: palette.reward,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 10,
-    gap: spacing.xxs,
-  },
-  endTitle: {
-    fontSize: typography.body,
-    fontWeight: '700',
-    color: palette.textPrimary,
-  },
-  endDescription: {
-    fontSize: typography.caption,
-    color: palette.textSecondary,
   },
 });

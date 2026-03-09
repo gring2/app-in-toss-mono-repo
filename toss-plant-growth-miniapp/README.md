@@ -1,23 +1,37 @@
-# Plant Growth Diary Miniapp (React Native)
+# 오늘의 식물일기 Miniapp (React Native)
 
 This project is a Granite-based React Native miniapp configured for Apps-in-Toss.
+
+## SDK baseline
+
+- Apps-in-Toss framework: `2.0.1`
+- React / React Native: `19.2.3` / `0.84.0`
+- Build command: `ait build`
 
 ## Team workflow
 
 Agent-based delivery workflow lives at [`../AGENTS.md`](../AGENTS.md).
+
+## Workflow contracts
+
+- Workflow RFC: [`docs/workflow-rfc.md`](./docs/workflow-rfc.md)
+- Ad behavior contract: [`docs/ad-behavior-contract.md`](./docs/ad-behavior-contract.md)
+- Slot lifecycle contract: [`docs/slot-lifecycle-contract.md`](./docs/slot-lifecycle-contract.md)
+- TDS UI contract: [`docs/tds-ui-contract.md`](./docs/tds-ui-contract.md)
+- TDS component mapping: [`docs/tds-component-mapping.md`](./docs/tds-component-mapping.md)
+- Metrics dashboard plan: [`docs/metrics-dashboard-plan.md`](./docs/metrics-dashboard-plan.md)
+- Handoff template: [`docs/templates/handoff-template.md`](./docs/templates/handoff-template.md)
+- Submission readiness report template: [`docs/templates/submission-readiness-report-template.md`](./docs/templates/submission-readiness-report-template.md)
 
 ## Included features
 
 - Local-only plant growth records (no backend)
 - Multiple plants with slot unlock
 - First photo baseline + latest photo automatic comparison
-- First-day dedicated UX (no duplicated before/after compare)
-- Home hero with `첫날 vs 오늘` slider
+- First-day dedicated UX
 - Camera capture flow for baseline and daily photos
-- Post-capture short interstitial ad (max once per day)
-- Timeline viewer for each plant (`/timeline`)
-- Timeline-end ad removed for smoother content completion
-- Rewarded ad gate for HD export on compare screen
+- Reward-based ad CTA in capture flow
+- Simplified home UX (plant switcher + today card + primary capture CTA)
 
 ## Run locally
 
@@ -37,24 +51,43 @@ npm run build
 Use this scheme in the sandbox app:
 
 ```text
-intoss://toss-todo-miniapp
+intoss://plant-growth-miniapp
 ```
 
-## Before real console registration
+## Production Submission Checklist
+
+Before console submission, replace placeholder values and run checks:
+
+1. Set `brand.icon` in `granite.config.ts`
+2. Set production adGroupIds in `src/config/ads.ts`
+3. Run:
+
+```bash
+npm run submission:build
+npm run submission:evidence
+```
+
+4. Confirm generated artifact:
+
+```text
+plant-growth-miniapp.ait
+```
+
+See detailed checklist in [`SUBMISSION_CHECKLIST.md`](./SUBMISSION_CHECKLIST.md).
+
+## Required console values
 
 Update these values in `granite.config.ts` to match your Apps-in-Toss console app:
 
 - `appName`
 - `brand.displayName`
 - `brand.icon`
-- adGroupId values in:
-  - `src/pages/compare.tsx` (HD save reward ad)
-  - `src/pages/index.tsx` (new plant slot unlock ad)
-  - `src/pages/capture.tsx` (post-capture interstitial ad)
+- adGroupId values in `src/config/ads.ts`:
+  - `captureReward`
 
 ## Data policy in MVP
 
-- All records are stored in local miniapp storage (`plant-growth-v2`)
+- All records are stored in local miniapp storage (`plant-growth-v3`)
 - Same-day photos are overwritten per plant (1 photo per day per plant)
 - Data does not sync between devices
 - Reinstall/device change recovery is not supported in this version

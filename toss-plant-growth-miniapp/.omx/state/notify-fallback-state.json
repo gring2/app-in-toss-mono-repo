@@ -1,0 +1,9 @@
+{
+  "pid": 75687,
+  "started_at": "2026-03-09T13:26:21.220Z",
+  "cwd": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp",
+  "notify_script": "/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js",
+  "poll_ms": 700,
+  "tracked_files": 0,
+  "seen_turns": 0
+}

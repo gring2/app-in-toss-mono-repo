@@ -5,6 +5,7 @@ export type PlantProfile = {
   name: string;
   createdAt: string;
   baselinePhotoId: string;
+  slotKey: string;
 };
 
 export type PlantPhoto = {
@@ -34,15 +35,21 @@ export type PlantState = {
   reportState: DailyReportState;
 };
 
+type PlantProfileLegacy = Omit<PlantProfile, 'slotKey'>;
+
+type PlantStateV3Legacy = Omit<PlantState, 'plants'> & {
+  plants: PlantProfileLegacy[];
+};
+
 export type PlantStateV2 = {
-  plants: PlantProfile[];
+  plants: PlantProfileLegacy[];
   photos: PlantPhoto[];
   activePlantId: string | null;
   unlockedPlantSlots: number;
 };
 
 export type LegacyPlantState = {
-  profile: PlantProfile | null;
+  profile: PlantProfileLegacy | null;
   photos: PlantPhoto[];
 };
 
@@ -52,16 +59,22 @@ export type ComparePair = {
 };
 
 export type CreatePlantBaselineResult =
-  | { ok: true; plantId: string }
+  | { ok: true; plantId: string; slotKey: string }
   | { ok: false; reason: 'slot_limit_reached' };
 
 export type UnlockTodayReportResult = 'alreadyUnlocked' | 'unlocked';
 export type UpdatePlantNameResult = 'ok' | 'empty_name' | 'not_found';
-export type ClearPlantDiaryResult = 'ok' | 'not_found';
+export type DeletePlantSlotResult = 'ok' | 'not_found';
+export type AddDailyPhotoResult = {
+  state: PlantState;
+  didOverwriteSameDay: boolean;
+  slotKey: string;
+};
 
 type Listener = (state: PlantState) => void;
 
-const STORAGE_KEY = 'plant-growth-v3';
+const STORAGE_KEY = 'plant-growth-v4';
+const LEGACY_STORAGE_KEY_V3 = 'plant-growth-v3';
 const LEGACY_STORAGE_KEY_V2 = 'plant-growth-v2';
 const LEGACY_STORAGE_KEY_V1 = 'plant-growth-v1';
 const DEFAULT_PLANT_NAME = '나의 식물';
@@ -109,7 +122,27 @@ function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value != null;
 }
 
-function isPlantProfile(value: unknown): value is PlantProfile {
+function buildSlotKey(slotNumber: number) {
+  return `slot-${slotNumber}`;
+}
+
+function parseSlotNumber(slotKey: string) {
+  const match = /^slot-(\d+)$/.exec(slotKey);
+
+  if (match == null) {
+    return null;
+  }
+
+  const parsed = Number(match[1]);
+
+  if (!Number.isFinite(parsed) || parsed < 1) {
+    return null;
+  }
+
+  return parsed;
+}
+
+function isPlantProfileLegacy(value: unknown): value is PlantProfileLegacy {
   if (!isObject(value)) {
     return false;
   }
@@ -120,6 +153,15 @@ function isPlantProfile(value: unknown): value is PlantProfile {
     typeof value.createdAt === 'string' &&
     typeof value.baselinePhotoId === 'string'
   );
+}
+
+function isPlantProfile(value: unknown): value is PlantProfile {
+  if (!isPlantProfileLegacy(value)) {
+    return false;
+  }
+
+  const candidate = value as Record<string, unknown>;
+  return typeof candidate.slotKey === 'string';
 }
 
 function isPlantPhoto(value: unknown): value is PlantPhoto {
@@ -164,6 +206,82 @@ function isDailyReportState(value: unknown): value is DailyReportState {
   );
 }
 
+function assignSlotKeys(
+  plants: PlantProfileLegacy[],
+  unlockedPlantSlots: number,
+) {
+  const normalizedUnlockedSlots = Math.max(
+    1,
+    unlockedPlantSlots,
+    plants.length,
+  );
+
+  return {
+    plants: plants.map((plant, index) => ({
+      ...plant,
+      slotKey: buildSlotKey(index + 1),
+    })),
+    unlockedPlantSlots: normalizedUnlockedSlots,
+  };
+}
+
+function normalizePlantStateWithSlots(state: PlantState): PlantState {
+  const normalizedUnlockedSlots = Math.max(
+    1,
+    state.unlockedPlantSlots,
+    state.plants.length,
+  );
+  const occupied = new Set<number>();
+
+  const normalizedPlants = state.plants.map((plant) => {
+    const parsedSlotNumber = parseSlotNumber(plant.slotKey);
+    let resolvedSlotNumber =
+      parsedSlotNumber != null &&
+      parsedSlotNumber <= normalizedUnlockedSlots &&
+      !occupied.has(parsedSlotNumber)
+        ? parsedSlotNumber
+        : null;
+
+    if (resolvedSlotNumber == null) {
+      for (
+        let slotNumber = 1;
+        slotNumber <= normalizedUnlockedSlots;
+        slotNumber += 1
+      ) {
+        if (!occupied.has(slotNumber)) {
+          resolvedSlotNumber = slotNumber;
+          break;
+        }
+      }
+    }
+
+    if (resolvedSlotNumber == null) {
+      resolvedSlotNumber = normalizedUnlockedSlots + occupied.size + 1;
+    }
+
+    occupied.add(resolvedSlotNumber);
+
+    return {
+      ...plant,
+      slotKey: buildSlotKey(resolvedSlotNumber),
+    };
+  });
+
+  const activePlantExists =
+    state.activePlantId != null &&
+    normalizedPlants.some((plant) => plant.id === state.activePlantId);
+
+  return {
+    plants: normalizedPlants,
+    photos: state.photos.map((photo) => ({ ...photo })),
+    activePlantId: activePlantExists
+      ? state.activePlantId
+      : (normalizedPlants[0]?.id ?? null),
+    unlockedPlantSlots: normalizedUnlockedSlots,
+    reportState: cloneReportState(state.reportState),
+  };
+}
+
 function isPlantState(value: unknown): value is PlantState {
   if (!isObject(value)) {
     return false;
@@ -182,6 +300,24 @@ function isPlantState(value: unknown): value is PlantState {
   );
 }
 
+function isPlantStateV3Legacy(value: unknown): value is PlantStateV3Legacy {
+  if (!isObject(value)) {
+    return false;
+  }
+
+  return (
+    Array.isArray(value.plants) &&
+    value.plants.every(isPlantProfileLegacy) &&
+    Array.isArray(value.photos) &&
+    value.photos.every(isPlantPhoto) &&
+    (value.activePlantId == null || typeof value.activePlantId === 'string') &&
+    typeof value.unlockedPlantSlots === 'number' &&
+    Number.isFinite(value.unlockedPlantSlots) &&
+    value.unlockedPlantSlots >= 1 &&
+    isDailyReportState(value.reportState)
+  );
+}
+
 function isPlantStateV2(value: unknown): value is PlantStateV2 {
   if (!isObject(value)) {
     return false;
@@ -189,7 +325,7 @@ function isPlantStateV2(value: unknown): value is PlantStateV2 {
 
   return (
     Array.isArray(value.plants) &&
-    value.plants.every(isPlantProfile) &&
+    value.plants.every(isPlantProfileLegacy) &&
     Array.isArray(value.photos) &&
     value.photos.every(isPlantPhoto) &&
     (value.activePlantId == null || typeof value.activePlantId === 'string') &&
@@ -205,7 +341,7 @@ function isLegacyPlantState(value: unknown): value is LegacyPlantState {
   }
 
   return (
-    (value.profile == null || isPlantProfile(value.profile)) &&
+    (value.profile == null || isPlantProfileLegacy(value.profile)) &&
     Array.isArray(value.photos) &&
     value.photos.every(isPlantPhoto)
   );
@@ -223,12 +359,32 @@ function parseJSON(raw: string | null): unknown {
   }
 }
 
-function migrateV2ToV3(state: PlantStateV2): PlantState {
+function migrateV3ToV4(state: PlantStateV3Legacy): PlantState {
+  const { plants, unlockedPlantSlots } = assignSlotKeys(
+    state.plants,
+    state.unlockedPlantSlots,
+  );
+
   return {
-    plants: state.plants.map((plant) => ({ ...plant })),
+    plants,
     photos: state.photos.map((photo) => ({ ...photo })),
     activePlantId: state.activePlantId,
-    unlockedPlantSlots: state.unlockedPlantSlots,
+    unlockedPlantSlots,
+    reportState: cloneReportState(state.reportState),
+  };
+}
+
+function migrateV2ToV4(state: PlantStateV2): PlantState {
+  const { plants, unlockedPlantSlots } = assignSlotKeys(
+    state.plants,
+    state.unlockedPlantSlots,
+  );
+
+  return {
+    plants,
+    photos: state.photos.map((photo) => ({ ...photo })),
+    activePlantId: state.activePlantId,
+    unlockedPlantSlots,
     reportState: cloneReportState(DEFAULT_REPORT_STATE),
   };
 }
@@ -239,7 +395,7 @@ function migrateLegacyState(legacyState: LegacyPlantState): PlantState {
   }
 
   return {
-    plants: [{ ...legacyState.profile }],
+    plants: [{ ...legacyState.profile, slotKey: buildSlotKey(1) }],
     photos: legacyState.photos.map((photo) => ({ ...photo })),
     activePlantId: legacyState.profile.id,
     unlockedPlantSlots: 1,
@@ -255,11 +411,15 @@ function parsePlantState(raw: string | null): PlantState | null {
   }
 
   if (isPlantState(parsed)) {
-    return cloneState(parsed);
+    return normalizePlantStateWithSlots(parsed);
+  }
+
+  if (isPlantStateV3Legacy(parsed)) {
+    return migrateV3ToV4(parsed);
   }
 
   if (isPlantStateV2(parsed)) {
-    return migrateV2ToV3(parsed);
+    return migrateV2ToV4(parsed);
   }
 
   if (isLegacyPlantState(parsed)) {
@@ -363,6 +523,17 @@ export function isPlantStateHydrated() {
 
 export function canCreatePlant(state: PlantState) {
   return state.plants.length < state.unlockedPlantSlots;
+}
+
+export function getPlantSlotKey(
+  state: PlantState,
+  plantId: string | null,
+): string | null {
+  if (plantId == null) {
+    return null;
+  }
+
+  return state.plants.find((plant) => plant.id === plantId)?.slotKey ?? null;
 }
 
 export function getActivePlant(state: PlantState): PlantProfile | null {
@@ -502,21 +673,29 @@ export async function hydratePlantState() {
     if (currentState != null) {
       stateCache = currentState;
     } else {
-      const legacyV2 = parsePlantState(
-        await Storage.getItem(LEGACY_STORAGE_KEY_V2),
+      const legacyV3 = parsePlantState(
+        await Storage.getItem(LEGACY_STORAGE_KEY_V3),
       );
 
-      if (legacyV2 != null) {
-        stateCache = legacyV2;
+      if (legacyV3 != null) {
+        stateCache = legacyV3;
       } else {
-        const legacyV1 = parsePlantState(
-          await Storage.getItem(LEGACY_STORAGE_KEY_V1),
+        const legacyV2 = parsePlantState(
+          await Storage.getItem(LEGACY_STORAGE_KEY_V2),
         );
 
-        if (legacyV1 != null) {
-          stateCache = legacyV1;
+        if (legacyV2 != null) {
+          stateCache = legacyV2;
         } else {
-          await persistState(stateCache);
+          const legacyV1 = parsePlantState(
+            await Storage.getItem(LEGACY_STORAGE_KEY_V1),
+          );
+
+          if (legacyV1 != null) {
+            stateCache = legacyV1;
+          } else {
+            await persistState(stateCache);
+          }
         }
       }
     }
@@ -581,7 +760,7 @@ export function updatePlantName(
   return 'ok';
 }
 
-export function clearPlantDiary(plantId: string): ClearPlantDiaryResult {
+export function deletePlantSlot(plantId: string): DeletePlantSlotResult {
   const normalizedPlantId = plantId.trim();
 
   if (
@@ -592,17 +771,32 @@ export function clearPlantDiary(plantId: string): ClearPlantDiaryResult {
   }
 
   updateState((current) => {
+    const remainingPlants = current.plants.filter(
+      (plant) => plant.id !== normalizedPlantId,
+    );
     const removedPhotoIds = new Set(
       current.photos
         .filter((photo) => photo.plantId === normalizedPlantId)
         .map((photo) => photo.id),
     );
+    const nextUnlockedPlantSlots = Math.max(
+      1,
+      current.unlockedPlantSlots - 1,
+      remainingPlants.length,
+    );
+    const nextActivePlantId =
+      current.activePlantId === normalizedPlantId
+        ? (remainingPlants[0]?.id ?? null)
+        : current.activePlantId;
 
-    return {
+    return normalizePlantStateWithSlots({
       ...current,
+      plants: remainingPlants,
       photos: current.photos.filter(
         (photo) => photo.plantId !== normalizedPlantId,
       ),
+      activePlantId: nextActivePlantId,
+      unlockedPlantSlots: nextUnlockedPlantSlots,
       reportState: {
         ...current.reportState,
         confirmedSceneKeys: current.reportState.confirmedSceneKeys.filter(
@@ -612,10 +806,28 @@ export function clearPlantDiary(plantId: string): ClearPlantDiaryResult {
           },
         ),
       },
-    };
+    });
   });
 
   return 'ok';
+}
+
+function findNextAvailableSlotKey(state: PlantState) {
+  const occupied = new Set(state.plants.map((plant) => plant.slotKey));
+
+  for (
+    let slotNumber = 1;
+    slotNumber <= state.unlockedPlantSlots;
+    slotNumber += 1
+  ) {
+    const slotKey = buildSlotKey(slotNumber);
+
+    if (!occupied.has(slotKey)) {
+      return slotKey;
+    }
+  }
+
+  return null;
 }
 
 export function createPlantBaseline({
@@ -633,6 +845,12 @@ export function createPlantBaseline({
     return { ok: false, reason: 'slot_limit_reached' };
   }
 
+  const slotKey = findNextAvailableSlotKey(stateCache);
+
+  if (slotKey == null) {
+    return { ok: false, reason: 'slot_limit_reached' };
+  }
+
   const plantId = createId('plant');
   const baselinePhotoId = createId('photo');
   const trimmedName = name?.trim() ?? '';
@@ -642,6 +860,7 @@ export function createPlantBaseline({
     name: trimmedName.length > 0 ? trimmedName : DEFAULT_PLANT_NAME,
     createdAt: capturedAt,
     baselinePhotoId,
+    slotKey,
   };
 
   const baselinePhoto: PlantPhoto = {
@@ -660,7 +879,7 @@ export function createPlantBaseline({
     activePlantId: plantId,
   }));
 
-  return { ok: true, plantId };
+  return { ok: true, plantId, slotKey };
 }
 
 export function addDailyPhoto({
@@ -681,18 +900,34 @@ export function addDailyPhoto({
     return null;
   }
 
+  const targetPlant = stateCache.plants.find(
+    (plant) => plant.id === targetPlantId,
+  );
+
+  if (targetPlant == null) {
+    return null;
+  }
+
+  const slotKey = targetPlant.slotKey;
+
+  const dayKey = getDateKeyFromISO(capturedAt);
+  const didOverwriteSameDay = stateCache.photos.some(
+    (photo) =>
+      photo.plantId === targetPlantId &&
+      getDateKeyFromISO(photo.capturedAt) === dayKey,
+  );
+
   updateState((current) => {
-    const dayKey = getDateKeyFromISO(capturedAt);
     const sameDayPhotos = current.photos.filter(
       (photo) =>
         photo.plantId === targetPlantId &&
         getDateKeyFromISO(photo.capturedAt) === dayKey,
     );
-    const targetPlant = current.plants.find(
+    const latestTargetPlant = current.plants.find(
       (plant) => plant.id === targetPlantId,
     );
     const baselinePhoto = sameDayPhotos.find(
-      (photo) => photo.id === targetPlant?.baselinePhotoId,
+      (photo) => photo.id === latestTargetPlant?.baselinePhotoId,
     );
     const replaceTarget = baselinePhoto ?? sameDayPhotos[0] ?? null;
 
@@ -723,5 +958,9 @@ export function addDailyPhoto({
     };
   });
 
-  return getPlantState();
+  return {
+    state: getPlantState(),
+    didOverwriteSameDay,
+    slotKey,
+  } satisfies AddDailyPhotoResult;
 }

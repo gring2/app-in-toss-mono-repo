@@ -1,5 +1,5 @@
 export const homeCopy = {
-  appTitle: 'Plant Growth Diary',
+  appTitle: '오늘의 식물일기',
   heroTitle: '오늘도 초록 기록, 시작해볼까요?',
   heroSubtitle: '작은 변화를 모아 식물의 하루를 더 즐겁게 남겨요.',
   captureReady: '오늘 한 컷 남기면 리포트까지 바로 이어져요.',
@@ -11,7 +11,7 @@ export const homeCopy = {
     `${streakCount}일 연속 기록 중 · 7일 배지 ${
       hasWeeklyBadge ? '완료' : '진행 중'
     }`,
-  slotDescription: '슬롯이 가득 차면 광고로 새 식물을 열 수 있어요.',
+  slotDescription: '슬롯이 가득 차면 새 식물 슬롯을 열 수 있어요.',
   loadingTitle: '기록을 불러오는 중이에요',
   loadingBody: '조금만 기다리면 오늘 기록을 이어갈 수 있어요.',
   onboardingTitle: '첫 식물과 인사해볼까요?',
@@ -30,19 +30,18 @@ export const homeCopy = {
   plantNameEmpty: '이름을 한 글자 이상 입력해주세요.',
   plantNameNotFound: '식물을 찾지 못했어요. 다시 선택해주세요.',
   plantPickerHint: '촬영할 식물은 위 탭에서 바꿀 수 있어요.',
-  clearDiaryConfirmTitle: (plantName: string) =>
-    `${plantName} 기록을 비울까요?`,
-  clearDiaryConfirmBody:
-    '사진 기록만 삭제되고 식물 이름과 슬롯은 그대로 남아요.',
-  clearDiaryDone: (plantName: string) =>
-    `${plantName} 기록을 비웠어요. 새 시작!`,
-  clearDiaryNotFound: '식물을 찾지 못했어요. 다시 선택해주세요.',
+  deleteSlotConfirmTitle: (plantName: string) =>
+    `${plantName} 슬롯을 비울까요?`,
+  deleteSlotConfirmBody: '식물 이름과 사진 기록이 삭제되고 슬롯은 비워져요.',
+  deleteSlotDone: (plantName: string) => `${plantName} 슬롯을 비웠어요.`,
+  deleteSlotNotFound: '식물을 찾지 못했어요. 다시 선택해주세요.',
   manageButton: '관리',
   manageSheetTitle: '식물 관리',
   manageSheetClose: '닫기',
   manageSlotLabel: (current: number, total: number) =>
     `식물 슬롯 ${current}/${total}`,
-  manageSlotHint: '새 식물은 아래 버튼에서 추가하거나 광고로 열 수 있어요.',
+  manageSlotHint:
+    '슬롯을 비우면 슬롯 수도 함께 줄어들어요. 필요할 때 새 슬롯을 다시 열 수 있어요.',
   todayCardTitle: '오늘의 기록',
   todayCardOnboardingBody: '첫 식물을 등록하고 오늘 한 장을 남겨보세요.',
   todayCardEmptyBody: '아직 기록이 없어요. 지금 한 장 남겨볼까요?',
@@ -59,25 +58,13 @@ export const homeCopy = {
   ctaStartDiary: '이 식물 촬영하기',
   ctaCompare: '오늘 리포트 보기',
   ctaRevisitReport: '오늘 리포트 다시 보기',
-  ctaClearDiary: '일기 비우기',
-  ctaClearDiaryConfirm: '비우기',
-  ctaClearDiaryCancel: '취소',
+  ctaDeleteSlot: '슬롯 비우기',
+  ctaDeleteSlotConfirm: '삭제',
+  ctaDeleteSlotCancel: '취소',
   ctaSaveName: '저장',
   ctaAddPlant: '새 식물 추가하기',
-  ctaUnlockPlant: '광고 보고 새 식물 열기',
-  ctaUnlockProcessing: '해금 처리 중...',
-  unlockUnsupported: '지금 환경에서는 슬롯 광고를 사용할 수 없어요.',
-  unlockLoading: '새 식물 해금 광고를 준비 중이에요.',
-  unlockReady: '광고 준비 완료! 새 식물을 열 수 있어요.',
-  unlockLoadFailed: '광고를 불러오지 못했어요. 잠시 후 다시 시도해주세요.',
-  unlockNeedReady: '광고 준비 중이에요. 잠시 후 다시 눌러주세요.',
-  unlockRequested: '광고를 여는 중이에요.',
-  unlockShowing: '광고를 끝까지 보면 새 식물이 열려요.',
+  ctaUnlockPlant: '새 식물 슬롯 열기',
   unlockSuccess: '새 식물 슬롯이 열렸어요!',
-  unlockDismissed: '광고를 끝까지 시청하면 슬롯이 열려요.',
-  unlockFailedToShow: '광고 재생에 실패했어요. 다시 시도해주세요.',
-  unlockRuntimeError: '광고 재생 중 문제가 생겼어요.',
-  unlockDebugDone: '테스트 해금 완료: 슬롯이 1개 늘어났어요.',
 };
 
 export const captureCopy = {
@@ -99,15 +86,11 @@ export const captureCopy = {
   captureFailed: '촬영에 실패했어요. 잠시 후 다시 시도해주세요.',
   permissionStillDenied: '권한이 아직 꺼져 있어요. 설정에서 켜주세요.',
   permissionDialogFailed: '권한 설정 화면을 열지 못했어요.',
-  adUnsupportedRollback:
-    '지금은 광고를 준비하지 못해서 이번 기록은 저장되지 않았어요.',
-  adNeedReady: '광고를 준비 중이에요. 잠시 후 다시 눌러주세요.',
-  adRequested: '광고를 여는 중이에요.',
-  adShowing: '광고를 끝까지 보면 오늘 기록이 완료돼요.',
-  adDismissedRollback: '광고 시청이 완료되지 않아 이번 기록은 취소됐어요.',
-  adFailedToShow: '광고 재생에 실패했어요. 다시 시도해주세요.',
-  adRuntimeError: '광고 재생 중 문제가 생겼어요.',
-  adBypassSaved: '테스트 환경이라 광고 없이 기록을 저장했어요.',
+  adRequested: '기록 저장 완료! 광고를 여는 중이에요.',
+  adShowing: '광고 시청 후 리포트 화면으로 이동해요.',
+  adNotReady: '광고를 준비 중이에요. 잠시 후 다시 시도해주세요.',
+  adFailedToShow:
+    '광고를 표시하지 못했어요. 다시 시도하거나 리포트 바로 보기를 선택해주세요.',
   detectingPlant: '식물 사진인지 확인 중이에요...',
   nonPlantTitle: '식물 사진인지 확인이 필요해요',
   nonPlantBodySuspect: '실내 화분 식물 사진인지 확인해주세요.',
@@ -120,6 +103,12 @@ export const captureCopy = {
   ctaCapture: '지금 촬영하기',
   ctaCapturing: '촬영 중...',
   ctaAdProcessing: '광고 확인 중...',
+  postCaptureTitle: '오늘 기록을 저장했어요',
+  postCaptureBody: '광고를 보면 리포트로 바로 이어서 볼 수 있어요.',
+  postCaptureBodyNoAd:
+    '지금은 광고를 보여줄 수 없어 리포트 화면으로 바로 이동할 수 있어요.',
+  ctaWatchAdThenCompare: '광고 보고 리포트 보기',
+  ctaSkipAdAndCompare: '리포트 바로 보기',
   ctaReloadAd: '광고 다시 준비하기',
   ctaPermission: '카메라 권한 켜기',
   ctaBack: '홈으로 돌아가기',

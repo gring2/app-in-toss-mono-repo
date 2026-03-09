@@ -1,0 +1,27 @@
+
+> build
+> granite build
+
+(node:89800) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+… {progress} (0/1673) | ios
+[2K[1A[2K[G● {progress} (214/1673) | ios
+● {progress} (240/1673) | android
+[2K[1A[2K[1A[2K[G● {progress} (518/1673) | ios
+● {progress} (527/1673) | android
+[2K[1A[2K[1A[2K[G● {progress} (693/1673) | ios
+● {progress} (692/1673) | android
+[2K[1A[2K[1A[2K[G● {progress} (899/1673) | ios
+● {progress} (901/1673) | android
+[2K[1A[2K[1A[2K[G● {progress} (1317/1673) | ios
+● {progress} (1317/1673) | android
+[2K[1A[2K[1A[2K[G● {progress} (1585/1673) | ios
+● {progress} (1585/1673) | android
+[2K[1A[2K[1A[2K[G● {progress} (1673/1673) | ios
+● {progress} (1673/1673) | android
+[2K[1A[2K[1A[2K[G● {progress} (1673/1673) | ios
+[2K[1A[2K[G
+2026-03-07 01:37:18.078 info [android] | 1673 Modules (0.39s) | 0 errors | 0 warnings
+2026-03-07 01:37:18.078 info [ios] | 1673 Modules (0.39s) | 0 errors | 0 warnings
+[AppsInToss] 앱 빌드 중...
+[AppsInToss] ✅ plant-growth-miniapp.ait 빌드 완료

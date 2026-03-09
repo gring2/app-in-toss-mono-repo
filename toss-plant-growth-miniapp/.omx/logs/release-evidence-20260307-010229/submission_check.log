@@ -1,0 +1,14 @@
+
+> submission:check
+> bash scripts/validate-submission.sh
+
+[Submission Check] Validating release readiness for plant-growth-miniapp...
+PASS: APP_NAME constant is set to plant-growth-miniapp
+PASS: granite appName uses APP_NAME constant
+PASS: brand icon placeholder is replaced
+PASS: capture adGroupId placeholder is replaced
+PASS: capture adGroupId is not empty in production config
+PASS: legacy toss-todo-miniapp references are removed
+PASS: dev adGroupId is not hardcoded in release screens
+PASS: release artifact plant-growth-miniapp.ait exists
+[Submission Check] All checks passed.

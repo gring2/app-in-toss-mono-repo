@@ -1,0 +1,16 @@
+{
+  "by_trigger": {
+    "Read and follow the instructions in .omx/state/team/replace-design-component-to-td/workers/worker-1/inbox.md": {
+      "at": 1772722962755,
+      "last_request_id": "d0052a1e-7f81-4fc2-9c9d-c875b3dd32e3"
+    },
+    "Read and follow the instructions in .omx/state/team/replace-design-component-to-td/workers/worker-2/inbox.md": {
+      "at": 1772722964292,
+      "last_request_id": "8aee075a-9844-405e-b89f-502867d3dfb0"
+    },
+    "Read and follow the instructions in .omx/state/team/replace-design-component-to-td/workers/worker-3/inbox.md": {
+      "at": 1772722966518,
+      "last_request_id": "42b4d50c-6806-445f-86e1-685cc08830ba"
+    }
+  }
+}

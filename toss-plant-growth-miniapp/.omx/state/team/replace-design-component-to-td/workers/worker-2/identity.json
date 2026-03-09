@@ -1,0 +1,13 @@
+{
+  "name": "worker-2",
+  "index": 2,
+  "role": "executor",
+  "worker_cli": "codex",
+  "assigned_tasks": [
+    "2"
+  ],
+  "working_dir": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp",
+  "team_state_root": "/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp/.omx/state",
+  "pid": 70257,
+  "pane_id": "%6"
+}

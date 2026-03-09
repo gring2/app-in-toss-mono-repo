@@ -4,9 +4,9 @@ import {
   addDailyPhoto,
   buildSceneConfirmationKey,
   canCreatePlant,
-  clearPlantDiary,
   confirmSceneForReport,
   createPlantBaseline,
+  deletePlantSlot,
   getActivePlant,
   getDateKeyFromDate,
   getPhotosForPlant,
@@ -138,6 +138,6 @@ export function usePlantGrowth() {
     unlockTodayReport,
     confirmSceneForReport,
     updatePlantName,
-    clearPlantDiary,
+    deletePlantSlot,
   };
 }

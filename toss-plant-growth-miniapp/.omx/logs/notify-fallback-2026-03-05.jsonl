@@ -1,0 +1,6 @@
+{"timestamp":"2026-03-05T14:57:18.030Z","type":"watcher_start","cwd":"/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp","notify_script":"/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js","poll_ms":700,"once":false}
+{"timestamp":"2026-03-05T14:57:31.016Z","type":"watcher_start","cwd":"/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp","notify_script":"/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js","poll_ms":700,"once":true}
+{"timestamp":"2026-03-05T14:57:31.019Z","type":"watcher_once_complete","seen_turns":0}
+{"timestamp":"2026-03-05T14:57:31.021Z","type":"watcher_stop","signal":"SIGTERM"}
+{"timestamp":"2026-03-05T14:57:34.590Z","type":"watcher_start","cwd":"/Users/jinwoopark/app-in-toss-test/toss-plant-growth-miniapp","notify_script":"/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js","poll_ms":700,"once":false}
+{"timestamp":"2026-03-06T15:13:18.030Z","type":"watcher_stop","signal":"SIGTERM"}

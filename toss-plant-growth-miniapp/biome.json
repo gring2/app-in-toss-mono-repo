@@ -28,6 +28,7 @@
     }
   },
   "files": {
-    "include": ["src/**/*", "pages/**/*"]
+    "include": ["src/**/*", "pages/**/*"],
+    "ignore": ["src/router.gen.ts"]
   }
 }

@@ -1,0 +1,10 @@
+
+> tds:check
+> bash scripts/check-tds-usage.sh
+
+[TDS Check] Validating TDS-first UI usage...
+PASS: no raw RN touch interaction primitives found
+PASS: no raw RN text/input/button primitive imports found
+PASS: all pages import @toss/tds-react-native
+PASS: all shared UI components import @toss/tds-react-native
+[TDS Check] All checks passed.

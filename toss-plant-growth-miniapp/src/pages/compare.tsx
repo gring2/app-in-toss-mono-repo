@@ -1,13 +1,11 @@
 import { createRoute } from '@granite-js/react-native';
-import { Button } from '@toss/tds-react-native';
+import { Button, List, ListRow, Text, colors } from '@toss/tds-react-native';
 import React from 'react';
 import {
   Image,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { CompareSlider } from '../components/CompareSlider';
@@ -20,7 +18,6 @@ import {
   selectComparisonTargetPhoto,
 } from '../reports/dailyReport';
 import { computeQuickSceneCheck } from '../reports/scoring';
-import { palette, radius, spacing, typography } from '../ui/theme';
 
 export const Route = createRoute('/compare', {
   component: Page,
@@ -142,8 +139,12 @@ function Page() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          <Text style={styles.title}>{compareCopy.unavailableTitle}</Text>
-          <Text style={styles.subtitle}>{compareCopy.unavailableBody}</Text>
+          <Text typography="t3" fontWeight="bold">
+            {compareCopy.unavailableTitle}
+          </Text>
+          <Text typography="t6" color={colors.grey600}>
+            {compareCopy.unavailableBody}
+          </Text>
           <Button
             size="medium"
             display="block"
@@ -163,7 +164,9 @@ function Page() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          <Text style={styles.title}>{compareCopy.preparingTitle}</Text>
+          <Text typography="t3" fontWeight="bold">
+            {compareCopy.preparingTitle}
+          </Text>
           <Button
             type="dark"
             style="weak"
@@ -185,16 +188,23 @@ function Page() {
         style={styles.screen}
         contentContainerStyle={styles.container}
       >
-        <Text style={styles.title}>
+        <Text typography="t3" fontWeight="bold">
           {compareCopy.pageTitle(activePlant.name)}
         </Text>
 
         {!todayReportUnlocked ? (
-          <View style={styles.lockedCard}>
-            <Text style={styles.lockedTitle}>{compareCopy.lockedTitle}</Text>
-            <Text style={styles.lockedDescription}>
-              {compareCopy.lockedBody}
-            </Text>
+          <>
+            <List style={styles.panel} rowSeparator="none">
+              <ListRow
+                contents={
+                  <ListRow.Texts
+                    type="2RowTypeA"
+                    top={compareCopy.lockedTitle}
+                    bottom={compareCopy.lockedBody}
+                  />
+                }
+              />
+            </List>
             <Image
               source={{
                 uri: toDisplayImageUri(
@@ -213,17 +223,22 @@ function Page() {
             >
               {compareCopy.ctaGoCapture}
             </Button>
-          </View>
+          </>
         ) : (
           <View style={styles.section}>
             {requiresSceneConfirmation && comparisonPhoto != null ? (
-              <View style={styles.lockedCard}>
-                <Text style={styles.lockedTitle}>
-                  {compareCopy.sceneMismatchTitle}
-                </Text>
-                <Text style={styles.lockedDescription}>
-                  {compareCopy.sceneMismatchBody}
-                </Text>
+              <>
+                <List style={styles.panel} rowSeparator="none">
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="2RowTypeA"
+                        top={compareCopy.sceneMismatchTitle}
+                        bottom={compareCopy.sceneMismatchBody}
+                      />
+                    }
+                  />
+                </List>
                 <CompareSlider
                   beforeDataUri={comparisonPhoto.dataUri}
                   beforeMimeType={comparisonPhoto.mimeType}
@@ -233,11 +248,18 @@ function Page() {
                   afterLabel={latestCaptureLabel}
                   height={280}
                 />
-                <Text style={styles.cardBody}>
-                  {compareCopy.quickSceneLabel(
-                    quickSceneCheck?.obviousSceneScore ?? 0,
-                  )}
-                </Text>
+                <List style={styles.panel} rowSeparator="none">
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="1RowTypeA"
+                        top={compareCopy.quickSceneLabel(
+                          quickSceneCheck?.obviousSceneScore ?? 0,
+                        )}
+                      />
+                    }
+                  />
+                </List>
                 <Button
                   size="medium"
                   display="block"
@@ -256,121 +278,167 @@ function Page() {
                 >
                   {compareCopy.ctaRecapture}
                 </Button>
-              </View>
+              </>
             ) : reportPayload == null ? (
-              <View style={styles.reportCard}>
-                <Text style={styles.cardTitle}>
-                  {compareCopy.reportLoadingTitle}
-                </Text>
-                <Text style={styles.cardBody}>
-                  {compareCopy.reportLoadingBody}
-                </Text>
-              </View>
+              <List style={styles.panel} rowSeparator="none">
+                <ListRow
+                  contents={
+                    <ListRow.Texts
+                      type="2RowTypeA"
+                      top={compareCopy.reportLoadingTitle}
+                      bottom={compareCopy.reportLoadingBody}
+                    />
+                  }
+                />
+              </List>
             ) : (
               <>
-                <View style={styles.mascotCard}>
-                  <Text style={styles.cardTitle}>
-                    {compareCopy.mascotTitle}
-                  </Text>
-                  <View style={styles.mascotRow}>
-                    <Text style={styles.mascotEmoji}>
-                      {compareCopy.mascotEmoji(
-                        reportPayload.changeScore,
-                        reportPayload.isBaselineOnly,
-                      )}
-                    </Text>
-                    <View style={styles.mascotBubble}>
-                      <Text style={styles.mascotBubbleText}>
-                        {compareCopy.mascotLine(
+                <List style={styles.panel} rowSeparator="none">
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="2RowTypeA"
+                        top={compareCopy.mascotTitle}
+                        bottom={`${compareCopy.mascotEmoji(
                           reportPayload.changeScore,
                           reportPayload.isBaselineOnly,
+                        )} ${compareCopy.mascotLine(
+                          reportPayload.changeScore,
+                          reportPayload.isBaselineOnly,
+                        )}`}
+                      />
+                    }
+                  />
+                </List>
+
+                {reportPayload.isBaselineOnly || comparisonPhoto == null ? (
+                  <Image
+                    source={{
+                      uri: toDisplayImageUri(
+                        latestPhoto.dataUri,
+                        latestPhoto.mimeType,
+                      ),
+                    }}
+                    style={styles.previewImage}
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <CompareSlider
+                    beforeDataUri={comparisonPhoto.dataUri}
+                    beforeMimeType={comparisonPhoto.mimeType}
+                    afterDataUri={latestPhoto.dataUri}
+                    afterMimeType={latestPhoto.mimeType}
+                    beforeLabel={
+                      reportPayload.comparisonLabel ?? comparisonLabel
+                    }
+                    afterLabel={latestCaptureLabel}
+                    height={240}
+                  />
+                )}
+
+                <List style={styles.panel} rowSeparator="none">
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="1RowTypeA"
+                        top={reportPayload.summaryText}
+                      />
+                    }
+                  />
+                </List>
+
+                <List style={styles.panel} rowSeparator="indented">
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="2RowTypeA"
+                        top="변화 점수"
+                        bottom={`${reportPayload.changeScore}점`}
+                      />
+                    }
+                  />
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="2RowTypeA"
+                        top={`${reportPayload.comparisonLabel ?? comparisonLabel} 대비`}
+                        bottom={formatDelta(reportPayload.deltaFromPrevious)}
+                      />
+                    }
+                  />
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="2RowTypeA"
+                        top="한 줄 해석"
+                        bottom={compareCopy.scoreInsight(
+                          reportPayload.changeScore,
                         )}
-                      </Text>
-                    </View>
-                  </View>
+                      />
+                    }
+                  />
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="2RowTypeA"
+                        top="연속 기록"
+                        bottom={`${reportState.streakCount}일`}
+                      />
+                    }
+                  />
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="2RowTypeA"
+                        top="7일 배지"
+                        bottom={
+                          reportState.badges.includes('weekly-7')
+                            ? '획득 완료'
+                            : '진행 중'
+                        }
+                      />
+                    }
+                  />
+                </List>
 
-                  {reportPayload.isBaselineOnly || comparisonPhoto == null ? (
-                    <Image
-                      source={{
-                        uri: toDisplayImageUri(
-                          latestPhoto.dataUri,
-                          latestPhoto.mimeType,
-                        ),
-                      }}
-                      style={styles.previewImage}
-                      resizeMode="cover"
-                    />
-                  ) : (
-                    <CompareSlider
-                      beforeDataUri={comparisonPhoto.dataUri}
-                      beforeMimeType={comparisonPhoto.mimeType}
-                      afterDataUri={latestPhoto.dataUri}
-                      afterMimeType={latestPhoto.mimeType}
-                      beforeLabel={
-                        reportPayload.comparisonLabel ?? comparisonLabel
-                      }
-                      afterLabel={latestCaptureLabel}
-                      height={240}
-                    />
-                  )}
-
-                  <Text style={styles.cardBody}>
-                    {reportPayload.summaryText}
-                  </Text>
-                </View>
-
-                <View style={styles.reportCard}>
-                  <Text style={styles.cardTitle}>
-                    {compareCopy.growthBoardTitle}
-                  </Text>
-                  <Text style={styles.scoreValue}>
-                    {reportPayload.changeScore}점
-                  </Text>
-                  <Text style={styles.cardBody}>
-                    {reportPayload.comparisonLabel ?? comparisonLabel} 대비:{' '}
-                    {formatDelta(reportPayload.deltaFromPrevious)}
-                  </Text>
-                  <Text style={styles.cardBody}>
-                    {compareCopy.scoreInsight(reportPayload.changeScore)}
-                  </Text>
-                  <Text style={styles.cardBody}>
-                    연속 기록: {reportState.streakCount}일
-                  </Text>
-                  <Text style={styles.cardBody}>
-                    7일 배지:{' '}
-                    {reportState.badges.includes('weekly-7')
-                      ? '획득 완료'
-                      : '진행 중'}
-                  </Text>
-                </View>
-
-                <View style={styles.reportCard}>
-                  <Text style={styles.cardTitle}>
-                    {compareCopy.tomorrowMissionTitle}
-                  </Text>
-                  <Text style={styles.cardBody}>
-                    {canCaptureToday
-                      ? compareCopy.tomorrowMissionBody
-                      : compareCopy.tomorrowMissionDoneBody}
-                  </Text>
-                </View>
+                <List style={styles.panel} rowSeparator="none">
+                  <ListRow
+                    contents={
+                      <ListRow.Texts
+                        type="2RowTypeA"
+                        top={compareCopy.tomorrowMissionTitle}
+                        bottom={
+                          canCaptureToday
+                            ? compareCopy.tomorrowMissionBody
+                            : compareCopy.tomorrowMissionDoneBody
+                        }
+                      />
+                    }
+                  />
+                </List>
               </>
             )}
           </View>
         )}
 
         {statusMessage.length > 0 ? (
-          <View style={styles.statusBox}>
-            <Text style={styles.statusText}>{statusMessage}</Text>
-          </View>
+          <List style={styles.panel} rowSeparator="none">
+            <ListRow
+              contents={<ListRow.Texts type="1RowTypeA" top={statusMessage} />}
+            />
+          </List>
         ) : null}
 
-        <Pressable
-          style={styles.albumLinkButton}
+        <Button
+          type="dark"
+          style="weak"
+          size="medium"
+          display="block"
           onPress={() => navigation.navigate('/timeline')}
+          viewStyle={styles.fullButton}
         >
-          <Text style={styles.albumLinkText}>{compareCopy.ctaGrowthAlbum}</Text>
-        </Pressable>
+          {compareCopy.ctaGrowthAlbum}
+        </Button>
 
         <Button
           type="dark"
@@ -390,126 +458,31 @@ function Page() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: palette.cream,
+    backgroundColor: colors.background,
   },
   screen: {
     flex: 1,
   },
   container: {
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.xl,
-    gap: spacing.sm,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    gap: 12,
   },
   section: {
-    gap: spacing.xs,
+    gap: 12,
   },
-  title: {
-    fontSize: typography.title,
-    fontWeight: '700',
-    color: palette.textPrimary,
-  },
-  subtitle: {
-    fontSize: typography.body,
-    color: palette.textSecondary,
-  },
-  lockedCard: {
-    borderRadius: radius.md,
+  panel: {
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: palette.rewardBorder,
-    backgroundColor: palette.reward,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.sm,
-    gap: spacing.xs,
-  },
-  lockedTitle: {
-    fontSize: typography.heading,
-    fontWeight: '700',
-    color: palette.textPrimary,
-  },
-  lockedDescription: {
-    fontSize: typography.body,
-    color: palette.textSecondary,
-  },
-  mascotCard: {
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: palette.border,
-    backgroundColor: palette.card,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 10,
-    gap: spacing.xs,
-  },
-  mascotRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-  },
-  mascotEmoji: {
-    fontSize: 28,
-  },
-  mascotBubble: {
-    flex: 1,
-    borderRadius: radius.sm,
-    backgroundColor: palette.sunSoft,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xs,
-    borderWidth: 1,
-    borderColor: palette.rewardBorder,
-  },
-  mascotBubbleText: {
-    fontSize: typography.body,
-    color: palette.textPrimary,
+    borderColor: colors.grey200,
+    backgroundColor: colors.background,
+    overflow: 'hidden',
   },
   previewImage: {
     width: '100%',
     aspectRatio: 1,
-    borderRadius: radius.md,
-    backgroundColor: palette.border,
-  },
-  reportCard: {
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: palette.border,
-    backgroundColor: palette.card,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 10,
-    gap: spacing.xxs,
-  },
-  cardTitle: {
-    fontSize: typography.body,
-    fontWeight: '700',
-    color: palette.textPrimary,
-  },
-  cardBody: {
-    fontSize: typography.body,
-    color: palette.textSecondary,
-  },
-  scoreValue: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: palette.leafStrong,
-  },
-  statusBox: {
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: palette.border,
-    backgroundColor: palette.card,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 10,
-  },
-  statusText: {
-    fontSize: typography.body,
-    color: palette.textSecondary,
-  },
-  albumLinkButton: {
-    alignSelf: 'center',
-    paddingVertical: spacing.xs,
-  },
-  albumLinkText: {
-    fontSize: typography.body,
-    color: palette.leafStrong,
-    textDecorationLine: 'underline',
-    fontWeight: '600',
+    borderRadius: 16,
+    backgroundColor: colors.grey100,
   },
   fullButton: {
     width: '100%',

@@ -1,0 +1,124 @@
+src/pages/compare.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+      2   2 │   import { Button, List, ListRow, Text, colors } from '@toss/tds-react-native';
+      3   3 │   import React from 'react';
+      4     │ - import·{·Image,·SafeAreaView,·ScrollView,·StyleSheet,·View·}·from·'react-native';
+          4 │ + import·{
+          5 │ + ··Image,
+          6 │ + ··SafeAreaView,
+          7 │ + ··ScrollView,
+          8 │ + ··StyleSheet,
+          9 │ + ··View,
+         10 │ + }·from·'react-native';
+      5  11 │   import { CompareSlider } from '../components/CompareSlider';
+      6  12 │   import { compareCopy } from '../content/copy';
+    ······· │ 
+    202 208 │               <Image
+    203 209 │                 source={{
+    204     │ - ················uri:·toDisplayImageUri(latestPhoto.dataUri,·latestPhoto.mimeType),
+        210 │ + ················uri:·toDisplayImageUri(
+        211 │ + ··················latestPhoto.dataUri,
+        212 │ + ··················latestPhoto.mimeType,
+        213 │ + ················),
+    205 214 │                 }}
+    206 215 │                 style={styles.previewImage}
+    ······· │ 
+    320 329 │                       afterDataUri={latestPhoto.dataUri}
+    321 330 │                       afterMimeType={latestPhoto.mimeType}
+    322     │ - ····················beforeLabel={reportPayload.comparisonLabel·??·comparisonLabel}
+        331 │ + ····················beforeLabel={
+        332 │ + ······················reportPayload.comparisonLabel·??·comparisonLabel
+        333 │ + ····················}
+    323 334 │                       afterLabel={latestCaptureLabel}
+    324 335 │                       height={240}
+    ······· │ 
+    361 372 │                           type="2RowTypeA"
+    362 373 │                           top="한 줄 해석"
+    363     │ - ························bottom={compareCopy.scoreInsight(reportPayload.changeScore)}
+        374 │ + ························bottom={compareCopy.scoreInsight(
+        375 │ + ··························reportPayload.changeScore,
+        376 │ + ························)}
+    364 377 │                         />
+    365 378 │                       }
+    ······· │ 
+    412 425 │             <List style={styles.panel} rowSeparator="none">
+    413 426 │               <ListRow
+    414     │ - ··············contents={
+    415     │ - ················<ListRow.Texts
+    416     │ - ··················type="1RowTypeA"
+    417     │ - ··················top={statusMessage}
+    418     │ - ················/>
+    419     │ - ··············}
+        427 │ + ··············contents={<ListRow.Texts·type="1RowTypeA"·top={statusMessage}·/>}
+    420 428 │               />
+    421 429 │             </List>
+  
+
+src/pages/index.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+     12  12 │   } from '@toss/tds-react-native';
+     13  13 │   import React from 'react';
+     14     │ - import·{·Image,·SafeAreaView,·ScrollView,·StyleSheet,·View·}·from·'react-native';
+         14 │ + import·{
+         15 │ + ··Image,
+         16 │ + ··SafeAreaView,
+         17 │ + ··ScrollView,
+         18 │ + ··StyleSheet,
+         19 │ + ··View,
+         20 │ + }·from·'react-native';
+     15  21 │   import { homeCopy } from '../content/copy';
+     16  22 │   import { usePlantGrowth } from '../hooks/usePlantGrowth';
+    ······· │ 
+    335 341 │           open={isManageSheetOpen}
+    336 342 │           onClose={() => setIsManageSheetOpen(false)}
+    337     │ - ········header={<BottomSheet.Header>{homeCopy.manageSheetTitle}</BottomSheet.Header>}
+        343 │ + ········header={
+        344 │ + ··········<BottomSheet.Header>{homeCopy.manageSheetTitle}</BottomSheet.Header>
+        345 │ + ········}
+    338 346 │           headerDescription={
+    339 347 │             <BottomSheet.HeaderDescription>
+    ······· │ 
+    352 360 │                   <ListRow.Texts
+    353 361 │                     type="2RowTypeA"
+    354     │ - ··················top={homeCopy.manageSlotLabel(plants.length,·unlockedPlantSlots)}
+        362 │ + ··················top={homeCopy.manageSlotLabel(
+        363 │ + ····················plants.length,
+        364 │ + ····················unlockedPlantSlots,
+        365 │ + ··················)}
+    355 366 │                     bottom={homeCopy.slotDescription}
+    356 367 │                   />
+    ······· │ 
+    376 387 │                 <ListRow
+    377 388 │                   contents={
+    378     │ - ··················<ListRow.Texts
+    379     │ - ····················type="1RowTypeA"
+    380     │ - ····················top={plantNameStatus}
+    381     │ - ··················/>
+        389 │ + ··················<ListRow.Texts·type="1RowTypeA"·top={plantNameStatus}·/>
+    382 390 │                   }
+    383 391 │                 />
+    ······· │ 
+    388 396 │               <List style={styles.panel} rowSeparator="none">
+    389 397 │                 <ListRow
+    390     │ - ················contents={
+    391     │ - ··················<ListRow.Texts
+    392     │ - ····················type="1RowTypeA"
+    393     │ - ····················top={unlockStatus}
+    394     │ - ··················/>
+    395     │ - ················}
+        398 │ + ················contents={<ListRow.Texts·type="1RowTypeA"·top={unlockStatus}·/>}
+    396 399 │                 />
+    397 400 │               </List>
+  
+
+Checked 5 files in 5ms. No fixes applied.
+Found 2 errors.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+

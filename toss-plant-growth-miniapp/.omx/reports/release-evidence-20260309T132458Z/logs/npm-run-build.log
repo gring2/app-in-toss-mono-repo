@@ -1,0 +1,116 @@
+
+> build
+> ait build
+
+… {progress} (0/1660) | android
+[2K[1A[2K[G● {progress} (8/1660) | android
+● {progress} (8/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (68/1660) | android
+● {progress} (68/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (183/1660) | android
+● {progress} (185/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (183/1660) | android
+● {progress} (187/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (220/1660) | android
+● {progress} (234/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (287/1660) | android
+● {progress} (291/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (431/1660) | android
+● {progress} (436/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (510/1660) | android
+● {progress} (510/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (543/1660) | android
+● {progress} (541/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (616/1660) | android
+● {progress} (632/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (630/1660) | android
+● {progress} (638/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (718/1660) | android
+● {progress} (727/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (771/1660) | android
+● {progress} (768/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (856/1660) | android
+● {progress} (850/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (875/1660) | android
+● {progress} (876/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (889/1660) | android
+● {progress} (887/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (988/1660) | android
+● {progress} (989/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1124/1660) | android
+● {progress} (1124/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1331/1660) | android
+● {progress} (1331/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1572/1660) | android
+● {progress} (1572/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1617/1660) | android
+● {progress} (1617/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1654/1660) | android
+● {progress} (1654/1660) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1660/1660) | android
+● {progress} (1660/1660) | ios
+[2K[1A[2K[1A[2K[G
+2026-03-09 22:25:03.813 info [ios] | 1660 Modules (1.54s) | 0 errors | 0 warnings
+2026-03-09 22:25:03.814 info [android] | 1660 Modules (1.55s) | 0 errors | 0 warnings
+… {progress} (0/1681) | android
+[2K[1A[2K[G● {progress} (8/1681) | android
+● {progress} (8/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (170/1681) | android
+● {progress} (96/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (177/1681) | android
+● {progress} (175/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (198/1681) | android
+● {progress} (175/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (266/1681) | android
+● {progress} (231/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (363/1681) | android
+● {progress} (324/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (455/1681) | android
+● {progress} (434/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (520/1681) | android
+● {progress} (493/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (588/1681) | android
+● {progress} (574/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (644/1681) | android
+● {progress} (620/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (646/1681) | android
+● {progress} (621/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (736/1681) | android
+● {progress} (732/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (773/1681) | android
+● {progress} (769/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (868/1681) | android
+● {progress} (868/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (894/1681) | android
+● {progress} (896/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (914/1681) | android
+● {progress} (914/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1006/1681) | android
+● {progress} (1006/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1145/1681) | android
+● {progress} (1010/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1160/1681) | android
+● {progress} (1145/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1352/1681) | android
+● {progress} (1340/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1593/1681) | android
+● {progress} (1593/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1629/1681) | android
+● {progress} (1624/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1674/1681) | android
+● {progress} (1674/1681) | ios
+[2K[1A[2K[1A[2K[G● {progress} (1681/1681) | android
+● {progress} (1681/1681) | ios
+[2K[1A[2K[1A[2K[G
+2026-03-09 22:25:08.071 info [ios] | 1681 Modules (1.55s) | 0 errors | 0 warnings
+2026-03-09 22:25:08.072 info [android] | 1681 Modules (1.55s) | 0 errors | 0 warnings
+│
+◇  [1/2] Built for RN 0.84.0
+│
+◇  [2/2] Built for RN 0.72.6
+│
+◇  Creating .ait artifact...
+│
+◆  AIT build completed (plant-growth-miniapp.ait)
+│
+●  deploymentId: 019cd2c5-c209-79d7-b84f-a133ba8ac2cb

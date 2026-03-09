@@ -1,0 +1,47 @@
+{
+  "worker": "leader-fixed",
+  "messages": [
+    {
+      "message_id": "d4bdc4d9-5aa2-4ee9-847e-750536745bf2",
+      "from_worker": "worker-1",
+      "to_worker": "leader-fixed",
+      "body": "ACK: worker-1 initialized",
+      "created_at": "2026-03-05T15:02:59.979Z"
+    },
+    {
+      "message_id": "977ace52-d5ed-4b1e-892e-e1395cacf0b8",
+      "from_worker": "worker-2",
+      "to_worker": "leader-fixed",
+      "body": "ACK: worker-2 initialized",
+      "created_at": "2026-03-05T15:03:00.368Z"
+    },
+    {
+      "message_id": "b7de5c7a-8e4d-4b1c-8e15-0d1a5c56515f",
+      "from_worker": "worker-3",
+      "to_worker": "leader-fixed",
+      "body": "ACK: worker-3 initialized",
+      "created_at": "2026-03-05T15:03:03.775Z"
+    },
+    {
+      "message_id": "124d0a71-fd6e-47cd-abb6-d702a9a8832b",
+      "from_worker": "worker-2",
+      "to_worker": "leader-fixed",
+      "body": "Task 2 completed: UI/UX review CONDITIONAL PASS. Typecheck/test/build PASS, lint FAIL on 6 files (see task result).",
+      "created_at": "2026-03-05T15:05:47.240Z"
+    },
+    {
+      "message_id": "e32490ce-b3d0-42a1-9292-05807f8dace8",
+      "from_worker": "worker-1",
+      "to_worker": "leader-fixed",
+      "body": "DONE task-1: CompareSlider switched to TDS Slider control; verification PASS (typecheck/test/lint/build).",
+      "created_at": "2026-03-05T15:06:55.379Z"
+    },
+    {
+      "message_id": "74ddfd8a-65c7-4103-a35a-6bbf92a37f47",
+      "from_worker": "worker-3",
+      "to_worker": "leader-fixed",
+      "body": "Task 3 review complete: wrote NO-GO submission report at .omx/state/team/replace-design-component-to-td/workers/worker-3/submission-readiness-report.md; blockers: lint fail, missing prod adGroupId, missing smoke evidence/metrics spec.",
+      "created_at": "2026-03-05T15:07:16.711Z"
+    }
+  ]
+}
