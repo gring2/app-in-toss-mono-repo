@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Brainstorm"
+  short_description: "Brainstorm product ideas or experiments from PM, Designer, and…"
+  default_prompt: "Use $pm-workflow-brainstorm to brainstorm product ideas or experiments from PM, Designer, and Engineer perspectives in Codex."

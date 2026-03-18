@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Analyze Feedback"
+  short_description: "Analyze user feedback at scale in Codex"
+  default_prompt: "Use $pm-workflow-analyze-feedback to analyze user feedback at scale in Codex."

@@ -92,14 +92,30 @@ export const captureCopy = {
   adFailedToShow:
     '광고를 표시하지 못했어요. 다시 시도하거나 리포트 바로 보기를 선택해주세요.',
   detectingPlant: '식물 사진인지 확인 중이에요...',
+  analyzingQuality: '사진 품질을 확인하고 있어요...',
+  enhancingPhoto: '작은 잎맥도 보이도록 사진을 정리하고 있어요...',
   nonPlantTitle: '식물 사진인지 확인이 필요해요',
   nonPlantBodySuspect: '실내 화분 식물 사진인지 확인해주세요.',
   nonPlantBodyReject: '식물로 확신하기 어려워요. 다시 촬영할까요?',
+  qualityRetakeTitle: '사진이 흐리거나 식물이 작게 보여요',
+  qualityRetakeStrongTitle: '이번 사진은 비교 정확도가 많이 떨어질 수 있어요',
+  qualityRetakeBody: (tips: string) =>
+    `계속 저장할 수 있지만 리포트 정확도가 낮아질 수 있어요. ${tips}`,
+  qualityTipBlurry: '손떨림을 줄이고 화면을 1초 고정해보세요.',
+  qualityTipShaky: '촬영 전에 숨을 고르고 화면을 안정적으로 맞춰보세요.',
+  qualityTipLowLight: '밝은 곳으로 이동하거나 빛이 오는 방향에서 찍어보세요.',
+  qualityTipOverexposed:
+    '강한 직사광을 피하고 노출이 덜한 위치에서 찍어보세요.',
+  qualityTipPlantTooSmall: '식물을 화면 중앙에 더 크게 담아보세요.',
   ctaRetake: '다시 촬영하기',
   ctaSaveAnyway: '그래도 저장하기',
   nonPlantCancelled: '이번 촬영은 저장하지 않았어요. 다시 찍어볼까요?',
   nonPlantOverrideSaved:
     '확인 후 저장했어요. 다음에는 식물을 더 크게 담아보세요.',
+  qualityRetakeCancelled:
+    '더 또렷한 사진을 위해 이번 촬영은 저장하지 않았어요.',
+  qualitySavedAnyway:
+    '확인 후 저장했어요. 다음에는 식물을 더 크게, 선명하게 담아보세요.',
   ctaCapture: '지금 촬영하기',
   ctaCapturing: '촬영 중...',
   ctaAdProcessing: '광고 확인 중...',
@@ -136,6 +152,10 @@ export const compareCopy = {
   tomorrowMissionDoneBody: '오늘 미션 완료! 내일 다시 만나 성장판을 이어가요.',
   reportLoadingTitle: '리포트 준비 중이에요',
   reportLoadingBody: '잠시 후 다시 확인해주세요.',
+  enhancedBadgeTitle: '✨ 디테일 강화됨',
+  enhancedBadgeBody: '원본과 강화 사진을 빠르게 바꿔 보며 차이를 확인해보세요.',
+  ctaShowEnhanced: '강화 보기',
+  ctaShowOriginal: '원본 보기',
   quickSceneLabel: (score: number) => `빠른 판별 점수: ${score}점`,
   mascotLine: (score: number, isBaselineOnly: boolean) => {
     if (isBaselineOnly) {

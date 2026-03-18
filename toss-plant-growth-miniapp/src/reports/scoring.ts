@@ -9,11 +9,14 @@ const SCORE_CACHE_MAX = 64;
 const QUICK_SAMPLE_COUNT = 128;
 const QUICK_DIFFERENT_THRESHOLD = 0.2;
 const MAX_DECODE_PAYLOAD_LENGTH = 1_200_000;
+const FRAMING_SHIFT_GUARD = 0.35;
 const scoreCache = new Map<string, number>();
 
 type ImageFeatures = {
   luma: number[];
   colorHistogram: number[];
+  centerLuma: number[];
+  centerColorHistogram: number[];
 };
 
 export type QuickSceneCheck = {
@@ -186,9 +189,14 @@ function buildResizedFeatures(
 ): ImageFeatures {
   const luma = new Array(targetSize * targetSize).fill(0);
   const colorBins = new Array(24).fill(0);
+  const centerLuma: number[] = [];
+  const centerColorBins = new Array(24).fill(0);
   const xScale = width / targetSize;
   const yScale = height / targetSize;
   const sampleCount = targetSize * targetSize;
+  const centerMin = targetSize * 0.22;
+  const centerMax = targetSize * 0.78;
+  let centerSampleCount = 0;
 
   for (let y = 0; y < targetSize; y += 1) {
     for (let x = 0; x < targetSize; x += 1) {
@@ -209,14 +217,31 @@ function buildResizedFeatures(
       colorBins[redBin] += 1;
       colorBins[8 + greenBin] += 1;
       colorBins[16 + blueBin] += 1;
+
+      const isCenter =
+        x >= centerMin && x <= centerMax && y >= centerMin && y <= centerMax;
+
+      if (isCenter) {
+        centerLuma.push(lumaValue);
+        centerColorBins[redBin] += 1;
+        centerColorBins[8 + greenBin] += 1;
+        centerColorBins[16 + blueBin] += 1;
+        centerSampleCount += 1;
+      }
     }
   }
 
   const colorHistogram = colorBins.map((value) => value / sampleCount);
+  const normalizedCenterSamples = Math.max(centerSampleCount, 1);
+  const centerColorHistogram = centerColorBins.map(
+    (value) => value / normalizedCenterSamples,
+  );
 
   return {
     luma,
     colorHistogram,
+    centerLuma: centerLuma.length > 0 ? centerLuma : luma,
+    centerColorHistogram,
   };
 }
 
@@ -329,11 +354,6 @@ export function computeChangeScore(
   );
   const quickScore = quickCheck.quickScore;
 
-  if (quickCheck.isClearlyDifferent) {
-    writeCachedScore(cacheKey, quickCheck.obviousSceneScore);
-    return quickCheck.obviousSceneScore;
-  }
-
   if (
     beforePayload.length > MAX_DECODE_PAYLOAD_LENGTH ||
     afterPayload.length > MAX_DECODE_PAYLOAD_LENGTH
@@ -348,6 +368,8 @@ export function computeChangeScore(
   if (beforeFeatures != null && afterFeatures != null) {
     const normalizedBefore = normalizeVector(beforeFeatures.luma);
     const normalizedAfter = normalizeVector(afterFeatures.luma);
+    const normalizedCenterBefore = normalizeVector(beforeFeatures.centerLuma);
+    const normalizedCenterAfter = normalizeVector(afterFeatures.centerLuma);
     const edgeBefore = buildEdgeSignal(
       normalizedBefore,
       TARGET_SIZE,
@@ -370,14 +392,52 @@ export function computeChangeScore(
       0,
       1,
     );
-    const combinedDistance =
+    const centerLumaDistance = clamp(
+      distance(normalizedCenterBefore, normalizedCenterAfter) / 2,
+      0,
+      1,
+    );
+    const centerColorDistance = clamp(
+      distance(
+        beforeFeatures.centerColorHistogram,
+        afterFeatures.centerColorHistogram,
+      ) * 2.2,
+      0,
+      1,
+    );
+    const globalDistance =
       lumaDistance * 0.45 + edgeDistance * 0.2 + colorDistance * 0.35;
-    const baseScore = combinedDistance * 100;
+    const centerDistance = centerLumaDistance * 0.7 + centerColorDistance * 0.3;
+    const framingShift = clamp(
+      (globalDistance - centerDistance) / FRAMING_SHIFT_GUARD,
+      0,
+      1,
+    );
+    const stabilizedDistance = clamp(
+      globalDistance * (1 - framingShift * 0.35) * 0.6 + centerDistance * 0.4,
+      0,
+      1,
+    );
+    const baseScore = stabilizedDistance * 100;
     const boostedScore =
-      combinedDistance >= 0.38
-        ? Math.max(baseScore, 80 + (combinedDistance - 0.38) * 40)
+      stabilizedDistance >= 0.34
+        ? Math.max(baseScore, 78 + (stabilizedDistance - 0.34) * 42)
         : baseScore;
-    const finalScore = Math.max(boostedScore, quickScore * 0.9);
+    const centerImpactScore = centerDistance * 170;
+    let finalScore = Math.max(
+      boostedScore,
+      quickScore * 0.86,
+      centerImpactScore,
+    );
+
+    if (quickCheck.isClearlyDifferent && centerDistance < 0.45) {
+      finalScore = Math.min(Math.max(finalScore, quickScore * 0.52), 68);
+    }
+
+    if (quickCheck.isClearlyDifferent && centerDistance >= 0.62) {
+      finalScore = Math.max(finalScore, 80 + (centerDistance - 0.62) * 35);
+    }
+
     const score = Math.round(clamp(finalScore, 0, 100));
 
     writeCachedScore(cacheKey, score);

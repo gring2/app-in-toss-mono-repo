@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Analyze Cohorts"
+  short_description: "Analyze cohort analysis on user data in Codex"
+  default_prompt: "Use $pm-workflow-analyze-cohorts to analyze cohort analysis on user data in Codex."

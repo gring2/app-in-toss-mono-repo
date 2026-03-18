@@ -1,0 +1,4 @@
+interface:
+  display_name: "Beachhead Segment"
+  short_description: "Identify the first beachhead market segment for a product launch"
+  default_prompt: "Use $beachhead-segment to identify the first beachhead market segment for a product launch."

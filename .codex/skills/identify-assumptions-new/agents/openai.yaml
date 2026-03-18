@@ -1,0 +1,4 @@
+interface:
+  display_name: "Identify Assumptions New"
+  short_description: "Identify risky assumptions for a new product idea across 8 risk…"
+  default_prompt: "Use $identify-assumptions-new to identify risky assumptions for a new product idea across 8 risk categories including Go-to-Market, Strategy, and Team."

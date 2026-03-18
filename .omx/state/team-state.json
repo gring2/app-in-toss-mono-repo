@@ -1,0 +1,73 @@
+{
+  "active": false,
+  "mode": "team",
+  "iteration": 0,
+  "max_iterations": 50,
+  "current_phase": "cancelled",
+  "task_description": "2:toss_miniapp_developer Implement the approved iPhone 13 mini SLA contract in toss-plant-growth-miniapp. Guarantee filtered preview under 5 seconds only for JPEG/high-compatibility photos; detect HEIC/HEIF from cheap mime/header classification before any full decode and route HEIC to a fast fallback instead of a long filtered-preview wait; preserve photo quality on the supported JPEG path; add tests, instrumentation, and required UX copy; keep typecheck/lint/test/build green.",
+  "started_at": "2026-03-14T12:30:31.722Z",
+  "tmux_pane_id": "%0",
+  "tmux_pane_set_at": "2026-03-14T12:30:31.722Z",
+  "linked_ralph": true,
+  "team_name": "2-toss-miniapp-developer-imple",
+  "agent_count": 3,
+  "agent_types": "quality-reviewer,test-engineer",
+  "available_agent_types": [
+    "analyst",
+    "api-reviewer",
+    "architect",
+    "build-fixer",
+    "code-reviewer",
+    "code-simplifier",
+    "critic",
+    "debugger",
+    "dependency-expert",
+    "designer",
+    "executor",
+    "explore",
+    "explore-harness",
+    "git-master",
+    "information-architect",
+    "performance-reviewer",
+    "planner",
+    "pm-agent",
+    "product-analyst",
+    "product-manager",
+    "qa-tester",
+    "quality-reviewer",
+    "quality-strategist",
+    "researcher",
+    "security-reviewer",
+    "sisyphus-lite",
+    "style-reviewer",
+    "team-executor",
+    "team-orchestrator",
+    "test-engineer",
+    "ux-researcher",
+    "verifier",
+    "vision",
+    "writer"
+  ],
+  "staffing_summary": "quality-reviewer x1 (primary delivery lane, medium reasoning); test-engineer x1 (verification + regression lane, medium reasoning); build-fixer x1 (specialist support lane, medium reasoning)",
+  "staffing_allocations": [
+    {
+      "role": "quality-reviewer",
+      "count": 1,
+      "reason": "primary delivery lane",
+      "reasoningEffort": "medium"
+    },
+    {
+      "role": "test-engineer",
+      "count": 1,
+      "reason": "verification + regression lane",
+      "reasoningEffort": "medium"
+    },
+    {
+      "role": "build-fixer",
+      "count": 1,
+      "reason": "specialist support lane",
+      "reasoningEffort": "medium"
+    }
+  ],
+  "completed_at": "2026-03-14T12:42:17.867Z"
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pestle Analysis"
+  short_description: "Analyze a PESTLE analysis covering Political, Economic, Social,…"
+  default_prompt: "Use $pestle-analysis to analyze a PESTLE analysis covering Political, Economic, Social, Technological, Legal, and Environmental factors."

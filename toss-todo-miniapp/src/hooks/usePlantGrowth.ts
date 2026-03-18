@@ -1,10 +1,10 @@
 import React from 'react';
 import {
+  type PlantState,
   addDailyPhoto,
   createPlantBaseline,
   hydratePlantState,
   isPlantStateHydrated,
-  type PlantState,
   selectComparePair,
   subscribePlantState,
 } from '../plants/store';
@@ -60,7 +60,10 @@ export function usePlantGrowth() {
   }, []);
 
   const comparePair = React.useMemo(() => selectComparePair(state), [state]);
-  const lastCapturedAt = React.useMemo(() => selectLatestCapturedAt(state), [state]);
+  const lastCapturedAt = React.useMemo(
+    () => selectLatestCapturedAt(state),
+    [state],
+  );
   const canCaptureToday = React.useMemo(() => {
     if (lastCapturedAt == null) {
       return true;

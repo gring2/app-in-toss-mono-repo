@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Plan Launch"
+  short_description: "Create a full go-to-market strategy in Codex"
+  default_prompt: "Use $pm-workflow-plan-launch to create a full go-to-market strategy in Codex."

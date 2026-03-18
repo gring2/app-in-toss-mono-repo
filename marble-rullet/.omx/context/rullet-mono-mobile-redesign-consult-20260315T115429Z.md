@@ -1,0 +1,29 @@
+# Context Snapshot
+
+- task statement: Re-plan The Rullet so it feels less like the original lazygyu roulette, becomes simpler and more smartphone-friendly, and gets a mono visual identity inspired by a monochrome pinball/arcade icon.
+- desired outcome: Produce a consensus design plan that differentiates the app at the product and UI level before implementation, with explicit staffing guidance for a designer-heavy team follow-up.
+- known facts/evidence:
+  - Workspace root is /Users/jinwoopark/app-in-toss-test/marble-rullet.
+  - Existing app is a web-based Apps-in-Toss miniapp shell under ./source using TypeScript + Parcel + box2d-wasm canvas physics.
+  - Current flow already uses Setup -> Draw -> Result screens in source/index.html and source/src/app.ts.
+  - Current UI still uses colorful Toss-like blue styling in source/assets/style.scss and dark/cyan/yellow game themes in source/src/data/constants.ts.
+  - User says current product feels too close to the original lazygyu roulette reference and wants a simpler, smartphone-friendly direction.
+  - User explicitly wants a mono theme; the referenced icons8 image is effectively black/white dominant and suggests a minimal arcade/pinball silhouette.
+  - Existing context snapshot implement-simple-good-marble-rullet-latest.md already established the broader goal of a simpler mobile-first Marble Draw utility preserving marble physics.
+- constraints:
+  - Must honor AGENTS.md workflow/guardrails for Apps-in-Toss miniapps.
+  - Must follow ralplan consensus flow before recommending execution.
+  - Design direction should avoid generic gambling/roulette cues and better fit Toss miniapp trust and mobile ergonomics.
+  - All new user-facing flows must include loading, empty, and error states.
+  - User currently asked for designer consultation, not direct implementation.
+- unknowns/open questions:
+  - Whether to keep the full-screen live marble field as the dominant surface or demote it behind a stronger mobile control shell.
+  - Whether the final visual language should be pure monochrome or monochrome + one restrained accent for CTA/state.
+  - Whether differentiation should come mainly from layout simplification, interaction model changes, or both.
+- likely codebase touchpoints:
+  - source/index.html
+  - source/assets/style.scss
+  - source/src/app.ts
+  - source/src/data/constants.ts
+  - source/src/roulette.ts and renderer files
+  - source/granite.config.ts for eventual branding cleanup

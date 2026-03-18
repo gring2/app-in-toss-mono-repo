@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Scenarios"
+  short_description: "Create comprehensive test scenarios from user stories with test…"
+  default_prompt: "Use $test-scenarios to create comprehensive test scenarios from user stories with test objectives, starting conditions, user roles, step-by-step actions, and expected outcomes."

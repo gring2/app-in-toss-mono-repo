@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Write Query"
+  short_description: "Generate SQL queries from natural language in Codex"
+  default_prompt: "Use $pm-workflow-write-query to generate SQL queries from natural language in Codex."

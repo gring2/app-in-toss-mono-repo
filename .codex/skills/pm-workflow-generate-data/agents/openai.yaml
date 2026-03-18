@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Generate Data"
+  short_description: "Generate realistic dummy datasets for testing in Codex"
+  default_prompt: "Use $pm-workflow-generate-data to generate realistic dummy datasets for testing in Codex."

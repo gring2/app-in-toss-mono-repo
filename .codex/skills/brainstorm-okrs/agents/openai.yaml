@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brainstorm OKRs"
+  short_description: "Brainstorm team-level OKRs aligned with company objectives"
+  default_prompt: "Use $brainstorm-okrs to brainstorm team-level OKRs aligned with company objectives."

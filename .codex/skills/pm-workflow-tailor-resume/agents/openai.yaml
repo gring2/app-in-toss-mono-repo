@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Tailor Resume"
+  short_description: "Tailor a PM resume to a specific job description in Codex"
+  default_prompt: "Use $pm-workflow-tailor-resume to tailor a PM resume to a specific job description in Codex."

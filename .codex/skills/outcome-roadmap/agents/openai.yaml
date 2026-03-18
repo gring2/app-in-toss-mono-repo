@@ -1,0 +1,4 @@
+interface:
+  display_name: "Outcome Roadmap"
+  short_description: "Transform an output-focused roadmap into an outcome-focused one…"
+  default_prompt: "Use $outcome-roadmap to transform an output-focused roadmap into an outcome-focused one that communicates strategic intent."

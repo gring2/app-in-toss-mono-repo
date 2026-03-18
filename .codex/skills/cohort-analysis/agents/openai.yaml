@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cohort Analysis"
+  short_description: "Analyze cohort analysis on user engagement data"
+  default_prompt: "Use $cohort-analysis to analyze cohort analysis on user engagement data."

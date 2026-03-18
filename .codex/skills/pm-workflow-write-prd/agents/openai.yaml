@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Write PRD"
+  short_description: "Create a comprehensive Product Requirements Document from a feature…"
+  default_prompt: "Use $pm-workflow-write-prd to create a comprehensive Product Requirements Document from a feature idea or problem statement in Codex."

@@ -1,11 +1,8 @@
+import { OpenCameraPermissionError, openCamera } from '@apps-in-toss/framework';
 import { createRoute } from '@granite-js/react-native';
-import { Button } from '@toss/tds-react-native';
-import {
-  OpenCameraPermissionError,
-  openCamera,
-} from '@apps-in-toss/framework';
+import { Button, List, ListRow, Text, colors } from '@toss/tds-react-native';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { usePlantGrowth } from '../hooks/usePlantGrowth';
 import { normalizeCapturedImage } from '../plants/image';
 
@@ -107,15 +104,25 @@ function Page() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.title}>{pageTitle}</Text>
-        <Text style={styles.subtitle}>
+        <Text typography="t3" fontWeight="bold">
+          {pageTitle}
+        </Text>
+        <Text typography="t6" color={colors.grey700}>
           정면에서 한 장만 찍으면 첫날과 자동 비교가 완성돼요.
         </Text>
 
         {errorMessage != null ? (
-          <View style={styles.errorBox}>
-            <Text style={styles.errorText}>{errorMessage}</Text>
-          </View>
+          <List style={styles.panel} rowSeparator="none">
+            <ListRow
+              contents={
+                <ListRow.Texts
+                  type="2RowTypeA"
+                  top="촬영에 문제가 생겼어요"
+                  bottom={errorMessage}
+                />
+              }
+            />
+          </List>
         ) : null}
 
         <Button
@@ -159,7 +166,7 @@ function Page() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F7F8FA',
+    backgroundColor: colors.grey50,
   },
   container: {
     flex: 1,
@@ -167,26 +174,9 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     gap: 12,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#111827',
-  },
-  subtitle: {
-    fontSize: 15,
-    color: '#4B5563',
-  },
-  errorBox: {
+  panel: {
     borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: '#FECACA',
-    backgroundColor: '#FEF2F2',
-  },
-  errorText: {
-    fontSize: 14,
-    color: '#B91C1C',
+    overflow: 'hidden',
   },
   fullButton: {
     width: '100%',

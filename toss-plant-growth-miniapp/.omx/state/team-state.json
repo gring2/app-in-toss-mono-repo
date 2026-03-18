@@ -4,13 +4,75 @@
   "iteration": 0,
   "max_iterations": 50,
   "current_phase": "cancelled",
-  "task_description": "Based on .omx/plans/workflow-improvement-plan-2026-03-07.md, complete remaining Codex workflow improvements for Apps-in-Toss miniapp in this repo. Prioritize docs/templates plus enforceable checks and release evidence collection; run verification and report concrete evidence.",
-  "started_at": "2026-03-06T15:59:27.642Z",
+  "task_description": "Review and improve toss-plant-growth-miniapp until reviewer agrees OK. Worker 1 acts as Retention UX Specialist and audits flow clarity, friction, and habit loop. Worker 2 acts as Toss Miniapp UI Designer and improves visual hierarchy, themed camera shell, and Toss/TDS fit. Worker 3 acts as PM Agent and reviews product promise, preset clarity, and copy/positioning, then makes small concrete improvements if needed. Worker 4 acts as Reviewer gate and must review changes, block weak UX/product edits, and only approve when the app is OK. Everyone: coordinate through team state, do not revert each other, keep diffs small and reversible, verify with tests/build where relevant.",
+  "started_at": "2026-03-12T14:50:52.839Z",
   "tmux_pane_id": "%0",
-  "tmux_pane_set_at": "2026-03-06T15:59:27.642Z",
+  "tmux_pane_set_at": "2026-03-12T14:50:52.839Z",
   "linked_ralph": true,
-  "team_name": "based-on-omx-plans-workflow-im",
-  "agent_count": 3,
-  "agent_types": "executor",
-  "completed_at": "2026-03-06T16:07:55.695Z"
+  "team_name": "review-and-improve-toss-plant",
+  "agent_count": 4,
+  "agent_types": "worker",
+  "available_agent_types": [
+    "analyst",
+    "api-reviewer",
+    "architect",
+    "build-fixer",
+    "code-reviewer",
+    "code-simplifier",
+    "critic",
+    "debugger",
+    "dependency-expert",
+    "designer",
+    "executor",
+    "explore",
+    "git-master",
+    "information-architect",
+    "performance-reviewer",
+    "planner",
+    "pm-agent",
+    "product-analyst",
+    "product-manager",
+    "qa-tester",
+    "quality-reviewer",
+    "quality-strategist",
+    "researcher",
+    "security-reviewer",
+    "sisyphus-lite",
+    "style-reviewer",
+    "team-executor",
+    "team-orchestrator",
+    "test-engineer",
+    "ux-researcher",
+    "verifier",
+    "vision",
+    "writer"
+  ],
+  "staffing_summary": "designer x1 (primary delivery lane, medium reasoning); test-engineer x1 (verification + regression lane, medium reasoning); build-fixer x1 (specialist support lane, medium reasoning); designer x1 (extra implementation capacity, medium reasoning)",
+  "staffing_allocations": [
+    {
+      "role": "designer",
+      "count": 1,
+      "reason": "primary delivery lane",
+      "reasoningEffort": "medium"
+    },
+    {
+      "role": "test-engineer",
+      "count": 1,
+      "reason": "verification + regression lane",
+      "reasoningEffort": "medium"
+    },
+    {
+      "role": "build-fixer",
+      "count": 1,
+      "reason": "specialist support lane",
+      "reasoningEffort": "medium"
+    },
+    {
+      "role": "designer",
+      "count": 1,
+      "reason": "extra implementation capacity",
+      "reasoningEffort": "medium"
+    }
+  ],
+  "completed_at": "2026-03-12T14:56:50.569Z"
 }

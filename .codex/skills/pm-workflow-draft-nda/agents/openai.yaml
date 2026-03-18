@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Draft NDA"
+  short_description: "Draft a Non-Disclosure Agreement between two parties with…"
+  default_prompt: "Use $pm-workflow-draft-nda to draft a Non-Disclosure Agreement between two parties with jurisdiction-appropriate clauses in Codex."

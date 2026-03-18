@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Transform Roadmap"
+  short_description: "Convert a feature-based roadmap into an outcome-focused roadmap…"
+  default_prompt: "Use $pm-workflow-transform-roadmap to convert a feature-based roadmap into an outcome-focused roadmap that communicates strategic intent in Codex."

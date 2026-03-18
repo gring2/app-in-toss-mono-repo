@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brainstorm Experiments Existing"
+  short_description: "Design experiments to test assumptions for an existing product"
+  default_prompt: "Use $brainstorm-experiments-existing to design experiments to test assumptions for an existing product."

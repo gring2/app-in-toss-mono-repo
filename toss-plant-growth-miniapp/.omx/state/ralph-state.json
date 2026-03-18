@@ -1,0 +1,18 @@
+{
+  "active": false,
+  "mode": "ralph",
+  "iteration": 0,
+  "max_iterations": 50,
+  "current_phase": "cancelled",
+  "task_description": "Review and improve toss-plant-growth-miniapp until reviewer agrees OK. Worker 1 acts as Retention UX Specialist and audits flow clarity, friction, and habit loop. Worker 2 acts as Toss Miniapp UI Designer and improves visual hierarchy, themed camera shell, and Toss/TDS fit. Worker 3 acts as PM Agent and reviews product promise, preset clarity, and copy/positioning, then makes small concrete improvements if needed. Worker 4 acts as Reviewer gate and must review changes, block weak UX/product edits, and only approve when the app is OK. Everyone: coordinate through team state, do not revert each other, keep diffs small and reversible, verify with tests/build where relevant.",
+  "started_at": "2026-03-12T14:50:52.840Z",
+  "tmux_pane_id": "%0",
+  "tmux_pane_set_at": "2026-03-12T14:50:52.840Z",
+  "linked_team": true,
+  "linked_mode": "team",
+  "team_name": "review-and-improve-toss-plant",
+  "linked_team_terminal_phase": "cancelled",
+  "linked_team_terminal_at": "2026-03-12T14:56:46.417Z",
+  "completed_at": "2026-03-12T14:56:46.417Z",
+  "last_turn_at": "2026-03-12T14:56:46.417Z"
+}

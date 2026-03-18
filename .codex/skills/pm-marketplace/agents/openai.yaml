@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Marketplace"
+  short_description: "Route PM Skills Marketplace requests in Codex"
+  default_prompt: "Use $pm-marketplace to route PM Skills Marketplace requests in Codex."

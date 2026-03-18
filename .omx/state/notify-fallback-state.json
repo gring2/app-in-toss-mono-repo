@@ -1,0 +1,51 @@
+{
+  "pid": 63132,
+  "parent_pid": 63106,
+  "started_at": "2026-03-13T12:49:55.683Z",
+  "cwd": "/Users/jinwoopark/app-in-toss-test",
+  "notify_script": "/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js",
+  "poll_ms": 250,
+  "pid_file": "/Users/jinwoopark/app-in-toss-test/.omx/state/notify-fallback.pid",
+  "max_lifetime_ms": 21600000,
+  "tracked_files": 11,
+  "seen_turns": 0,
+  "dispatch_drain": {
+    "enabled": true,
+    "max_per_tick": 5,
+    "run_count": 80357,
+    "leader_only": true,
+    "last_tick_at": "2026-03-13T18:49:55.490Z",
+    "last_result": {
+      "processed": 0,
+      "skipped": 4,
+      "failed": 0
+    },
+    "last_error": null
+  },
+  "leader_nudge": {
+    "enabled": true,
+    "run_count": 80357,
+    "leader_only": true,
+    "stale_threshold_ms": 180000,
+    "precomputed_leader_stale": true,
+    "last_tick_at": "2026-03-13T18:49:55.491Z",
+    "last_error": null
+  },
+  "ralph_continue_steer": {
+    "enabled": true,
+    "cadence_ms": 60000,
+    "message": "Ralph loop active continue",
+    "active": true,
+    "last_state_check_at": "2026-03-13T18:49:55.492Z",
+    "last_sent_at": "",
+    "last_reason": "pane_has_active_task",
+    "last_error": null,
+    "state_path": "/Users/jinwoopark/app-in-toss-test/.omx/state/sessions/omx-1773406195605-av9hat/ralph-state.json",
+    "pane_id": "%0",
+    "pane_current_command": "node",
+    "current_phase": "verifying"
+  },
+  "stop_reason": "max_lifetime_exceeded",
+  "stop_signal": null,
+  "stopping": true
+}

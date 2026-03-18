@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Pricing"
+  short_description: "Design a pricing strategy in Codex"
+  default_prompt: "Use $pm-workflow-pricing to design a pricing strategy in Codex."

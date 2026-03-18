@@ -1,0 +1,4 @@
+interface:
+  display_name: "Market Segments"
+  short_description: "Identify 3-5 potential customer segments with demographics, JTBD,…"
+  default_prompt: "Use $market-segments to identify 3-5 potential customer segments with demographics, JTBD, and product fit analysis."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Competitive Analysis"
+  short_description: "Analyze the competitive landscape in Codex"
+  default_prompt: "Use $pm-workflow-competitive-analysis to analyze the competitive landscape in Codex."

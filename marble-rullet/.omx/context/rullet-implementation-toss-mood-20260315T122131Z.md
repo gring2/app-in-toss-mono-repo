@@ -1,0 +1,28 @@
+# Context Snapshot
+
+- task statement: Implement the approved mono redesign for The Rullet using the completed designer consult artifacts, with UX themes in the same mood as Toss.
+- desired outcome: Ship a working WebView implementation in ./source that preserves marble physics, feels simpler and more smartphone-friendly, reduces clone-like resemblance to the original Marble Roulette, and matches a restrained Toss-like mood.
+- known facts/evidence:
+  - Consensus plan approved at `.omx/plans/rullet-mono-designer-consensus-plan-2026-03-15.md`.
+  - Designer consult completed cleanly via team `spec-design-consult-for-the-ru`.
+  - Preserved artifacts live in `.omx/reports/` for UI spec, retention UX, monetization guardrails, and consult index.
+  - Current runtime is a WebView app under `source/` using TypeScript + Parcel + box2d-wasm.
+  - Existing verification before implementation: typecheck/lint/build pass; repo currently has no `npm test` script.
+  - User added a new explicit preference: UX themes must be in the same mood as Toss.
+- constraints:
+  - Stay on current WebView runtime unless blocked.
+  - Keep marble physics/fairness feel.
+  - Mono-first visual system with at most one restrained accent.
+  - Loading/empty/error states required.
+  - No monetization surface in v1 core flow.
+  - Reduce roulette/gambling framing.
+  - Compose/Result should not be dominated by full-screen canvas; Draw may keep a focused full-screen event surface.
+- unknowns/open questions:
+  - Exact final Korean/English copy choices.
+  - Whether to add lightweight tests versus explicit test-gap documentation only.
+- likely codebase touchpoints:
+  - source/index.html
+  - source/assets/style.scss
+  - source/src/app.ts
+  - source/src/data/constants.ts
+  - supporting renderer/theme files if needed

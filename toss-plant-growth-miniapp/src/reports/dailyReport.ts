@@ -33,6 +33,10 @@ export function getTodayDateKey() {
   return getDateKeyFromDate(new Date());
 }
 
+function getScoringDataUri(photo: PlantPhoto) {
+  return photo.sourceDataUri ?? photo.dataUri;
+}
+
 function getTimestamp(isoDate: string) {
   const parsed = Date.parse(isoDate);
 
@@ -211,7 +215,10 @@ export function buildDailyReportPayload({
   const isBaselineOnly = previousPhoto == null;
   const deltaFromPrevious = isBaselineOnly
     ? null
-    : computeChangeScore(previousPhoto.dataUri, currentPhoto.dataUri);
+    : computeChangeScore(
+        getScoringDataUri(previousPhoto),
+        getScoringDataUri(currentPhoto),
+      );
   const changeScore = deltaFromPrevious ?? 0;
   const changeLevel = getChangeLevel(changeScore);
   const comparisonLabel = comparisonTarget?.label ?? null;

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Write Stories"
+  short_description: "Break down a feature into backlog items in Codex"
+  default_prompt: "Use $pm-workflow-write-stories to break down a feature into backlog items in Codex."

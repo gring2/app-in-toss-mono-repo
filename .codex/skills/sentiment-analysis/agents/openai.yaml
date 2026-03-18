@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sentiment Analysis"
+  short_description: "Analyze user feedback data to identify segments with sentiment…"
+  default_prompt: "Use $sentiment-analysis to analyze user feedback data to identify segments with sentiment scores, JTBD, and product satisfaction insights."

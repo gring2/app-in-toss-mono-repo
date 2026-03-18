@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Review Resume"
+  short_description: "Run PM resume review against 10 best practices in Codex"
+  default_prompt: "Use $pm-workflow-review-resume to run PM resume review against 10 best practices in Codex."

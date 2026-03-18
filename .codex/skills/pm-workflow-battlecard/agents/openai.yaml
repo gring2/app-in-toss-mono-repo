@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Battlecard"
+  short_description: "Create a sales-ready competitive battlecard in Codex"
+  default_prompt: "Use $pm-workflow-battlecard to create a sales-ready competitive battlecard in Codex."

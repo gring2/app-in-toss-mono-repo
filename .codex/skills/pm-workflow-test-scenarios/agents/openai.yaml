@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Test Scenarios"
+  short_description: "Generate comprehensive test scenarios from user stories or feature…"
+  default_prompt: "Use $pm-workflow-test-scenarios to generate comprehensive test scenarios from user stories or feature specs in Codex."

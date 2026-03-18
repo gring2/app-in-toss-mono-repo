@@ -1,0 +1,4 @@
+interface:
+  display_name: "User Segmentation"
+  short_description: "Segment users from feedback data based on behavior, JTBD, and needs"
+  default_prompt: "Use $user-segmentation to segment users from feedback data based on behavior, JTBD, and needs."

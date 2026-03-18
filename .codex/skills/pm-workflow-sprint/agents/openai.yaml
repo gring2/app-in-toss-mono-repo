@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Sprint"
+  short_description: "Sprint lifecycle in Codex"
+  default_prompt: "Use $pm-workflow-sprint to sprint lifecycle in Codex."

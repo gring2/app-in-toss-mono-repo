@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Market Product"
+  short_description: "Brainstorm marketing ideas, positioning, value prop statements, and…"
+  default_prompt: "Use $pm-workflow-market-product to brainstorm marketing ideas, positioning, value prop statements, and product names in Codex."

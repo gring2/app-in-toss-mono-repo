@@ -1,4 +1,19 @@
 {
-  "last_nudged_by_team": {},
-  "last_idle_nudged_by_team": {}
+  "last_nudged_by_team": {
+    "review-and-improve-toss-plant": {
+      "at": "2026-03-12T14:56:33.427Z",
+      "last_message_id": "7720aadc-dde4-4284-9de9-665d4dfd7045",
+      "reason": "stale_leader_panes_alive"
+    }
+  },
+  "last_idle_nudged_by_team": {},
+  "progress_by_team": {
+    "review-and-improve-toss-plant": {
+      "signature": "{\"tasks\":[{\"id\":\"1\",\"owner\":\"worker-2\",\"status\":\"pending\"},{\"id\":\"2\",\"owner\":\"worker-3\",\"status\":\"pending\"},{\"id\":\"3\",\"owner\":\"worker-4\",\"status\":\"pending\"},{\"id\":\"4\",\"owner\":\"worker-1\",\"status\":\"pending\"}],\"workers\":[{\"worker\":\"worker-1\",\"state\":\"unknown\",\"current_task_id\":\"\",\"status_missing\":true,\"turn_count\":null,\"heartbeat_missing\":true},{\"worker\":\"worker-2\",\"state\":\"unknown\",\"current_task_id\":\"\",\"status_missing\":true,\"turn_count\":null,\"heartbeat_missing\":true},{\"worker\":\"worker-3\",\"state\":\"unknown\",\"current_task_id\":\"\",\"status_missing\":true,\"turn_count\":null,\"heartbeat_missing\":true},{\"worker\":\"worker-4\",\"state\":\"unknown\",\"current_task_id\":\"\",\"status_missing\":true,\"turn_count\":null,\"heartbeat_missing\":true}]}",
+      "last_progress_at": "2026-03-12T14:55:20.731Z",
+      "observed_at": "2026-03-12T14:56:46.405Z",
+      "missing_signal_workers": 4,
+      "work_remaining": true
+    }
+  }
 }

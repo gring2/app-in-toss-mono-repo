@@ -1,0 +1,36 @@
+{
+  "created_at": "2026-03-09T17:47:24.356Z",
+  "entries": [],
+  "schema_version": 2,
+  "updated_at": "2026-03-12T00:00:00Z",
+  "visual_feedback": [
+    {
+      "iteration": 6,
+      "reference_images": [
+        "식집사/images.jpeg"
+      ],
+      "generated_screenshot": "/tmp/camera-preview/golden1-compare.jpg",
+      "verdict": {
+        "score": 76,
+        "verdict": "revise",
+        "category_match": true,
+        "differences": [
+          "Enhancement is visible on weaker plant photos, but already-good shots pick up an artificial green/cyan cast.",
+          "Neutral backgrounds and bright floor/window regions are being color-shifted instead of mostly preserved.",
+          "Global enhancement remains too strong for high-quality captures, making some results look filtered rather than clearer."
+        ],
+        "suggestions": [
+          "Reduce or skip grey-world color balancing on already well-balanced captures.",
+          "Lower plant/background vibrance and local-gain values for high-quality inputs.",
+          "Keep strong detail recovery for weak captures, but add a naturalness-preserving branch for sharp/well-lit photos."
+        ],
+        "reasoning": "Current output clearly improves visibility on weaker inputs, but the high-quality path still over-processes color and global contrast. Another tuning pass is needed before the result looks consistently natural."
+      },
+      "next_actions": [
+        "Reduce or skip grey-world color balancing on already well-balanced captures.",
+        "Lower plant/background vibrance and local-gain values for high-quality inputs.",
+        "Keep strong detail recovery for weak captures, but add a naturalness-preserving branch for sharp/well-lit photos."
+      ]
+    }
+  ]
+}

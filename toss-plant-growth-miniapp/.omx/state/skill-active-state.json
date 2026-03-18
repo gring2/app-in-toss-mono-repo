@@ -1,10 +1,11 @@
 {
   "version": 1,
   "active": false,
-  "skill": "code-review",
-  "keyword": "code review",
+  "skill": "ralplan",
+  "keyword": "$ralplan",
   "phase": "completing",
-  "activated_at": "2026-03-09T13:24:28.356Z",
-  "updated_at": "2026-03-09T13:27:38.876Z",
-  "source": "keyword-detector"
+  "activated_at": "2026-03-12T14:24:58.969Z",
+  "updated_at": "2026-03-12T15:00:22.953Z",
+  "source": "keyword-detector",
+  "input_lock": null
 }

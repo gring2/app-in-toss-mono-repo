@@ -1,0 +1,48 @@
+{
+  "active": true,
+  "iteration": 5,
+  "max_iterations": 10,
+  "current_phase": "verifying",
+  "started_at": "2026-03-11T23:03:31+09:00",
+  "context_snapshot_path": ".omx/context/dataset-driven-camera-tuning-20260311T140325Z.md",
+  "task": "dataset-driven macro camera enhancement",
+  "blocker": "dataset folders in ~/Documents are inaccessible (permission denied)",
+  "last_turn_at": "2026-03-11T15:23:59.624Z",
+  "dataset": {
+    "normal_dir": "normal_plant_pic",
+    "golden_dir": "식집사",
+    "normal_jpeg_count": 6,
+    "golden_jpeg_count": 8
+  },
+  "best_candidate": {
+    "profile": 1.08,
+    "sharpen": 1.25,
+    "gamma": 1,
+    "localGainScale": 1.4,
+    "plantVibrance": 0.6,
+    "backgroundVibrance": 0.08,
+    "highlightCompression": 0.5
+  },
+  "implemented_in": "src/camera/enhancement.ts",
+  "verification": {
+    "typecheck": "pass",
+    "camera_tests": "pass",
+    "build": "pass",
+    "architect_review": "pass-with-notes (artifact/noise risk, compare UX can improve)"
+  },
+  "implemented": {
+    "enhancement_version": "macro_pop_v3",
+    "files": [
+      "src/camera/enhancement.ts",
+      "src/components/EnhanceCaptureLab.tsx",
+      "scripts/tune-enhancement-dataset.js"
+    ],
+    "fixes": [
+      "added selective vibrance stage",
+      "raised local contrast gain with tuned defaults",
+      "raised unsharp threshold to 2.2MP",
+      "jpeg quality set to 90",
+      "fixed overexposed branch ordering in resolveProfileStrength"
+    ]
+  }
+}

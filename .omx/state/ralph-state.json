@@ -1,0 +1,18 @@
+{
+  "active": false,
+  "mode": "ralph",
+  "iteration": 0,
+  "max_iterations": 50,
+  "current_phase": "cancelled",
+  "task_description": "2:toss_miniapp_developer Implement the approved iPhone 13 mini SLA contract in toss-plant-growth-miniapp. Guarantee filtered preview under 5 seconds only for JPEG/high-compatibility photos; detect HEIC/HEIF from cheap mime/header classification before any full decode and route HEIC to a fast fallback instead of a long filtered-preview wait; preserve photo quality on the supported JPEG path; add tests, instrumentation, and required UX copy; keep typecheck/lint/test/build green.",
+  "started_at": "2026-03-14T12:30:31.722Z",
+  "tmux_pane_id": "%0",
+  "tmux_pane_set_at": "2026-03-14T12:30:31.722Z",
+  "linked_team": true,
+  "linked_mode": "team",
+  "team_name": "2-toss-miniapp-developer-imple",
+  "linked_team_terminal_phase": "cancelled",
+  "linked_team_terminal_at": "2026-03-14T12:41:34.469Z",
+  "completed_at": "2026-03-14T12:41:34.469Z",
+  "last_turn_at": "2026-03-14T12:42:17.864Z"
+}

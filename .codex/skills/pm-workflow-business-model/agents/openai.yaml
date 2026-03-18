@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Business Model"
+  short_description: "Explore business models using Lean Canvas, Business Model Canvas,…"
+  default_prompt: "Use $pm-workflow-business-model to explore business models using Lean Canvas, Business Model Canvas, Startup Canvas, or Value Proposition frameworks in Codex."

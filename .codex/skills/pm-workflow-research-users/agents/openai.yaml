@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Research Users"
+  short_description: "Run user research in Codex"
+  default_prompt: "Use $pm-workflow-research-users to run user research in Codex."

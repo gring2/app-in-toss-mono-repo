@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Plan OKRs"
+  short_description: "Brainstorm team-level OKRs aligned with company objectives in Codex"
+  default_prompt: "Use $pm-workflow-plan-okrs to brainstorm team-level OKRs aligned with company objectives in Codex."

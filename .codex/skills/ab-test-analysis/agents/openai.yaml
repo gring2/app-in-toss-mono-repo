@@ -1,0 +1,4 @@
+interface:
+  display_name: "A/B Test Analysis"
+  short_description: "Analyze A/B test results with statistical significance, sample size…"
+  default_prompt: "Use $ab-test-analysis to analyze A/B test results with statistical significance, sample size validation, confidence intervals, and ship/extend/stop recommendations."

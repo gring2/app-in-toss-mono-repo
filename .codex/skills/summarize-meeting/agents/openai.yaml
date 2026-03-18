@@ -1,0 +1,4 @@
+interface:
+  display_name: "Summarize Meeting"
+  short_description: "Summarize a meeting transcript into structured notes with date,…"
+  default_prompt: "Use $summarize-meeting to summarize a meeting transcript into structured notes with date, participants, topic, key decisions, summary points, and action items."

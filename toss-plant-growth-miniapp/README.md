@@ -14,6 +14,7 @@ Agent-based delivery workflow lives at [`../AGENTS.md`](../AGENTS.md).
 
 ## Workflow contracts
 
+- Product pivot brief: [`docs/product-pivot-2026-03-11.md`](./docs/product-pivot-2026-03-11.md)
 - Workflow RFC: [`docs/workflow-rfc.md`](./docs/workflow-rfc.md)
 - Ad behavior contract: [`docs/ad-behavior-contract.md`](./docs/ad-behavior-contract.md)
 - Slot lifecycle contract: [`docs/slot-lifecycle-contract.md`](./docs/slot-lifecycle-contract.md)
@@ -25,12 +26,13 @@ Agent-based delivery workflow lives at [`../AGENTS.md`](../AGENTS.md).
 
 ## Included features
 
-- Local-only plant growth records (no backend)
+- Local-only plant diary records (no backend)
 - Multiple plants with slot unlock
-- First photo baseline + latest photo automatic comparison
-- First-day dedicated UX
-- Camera capture flow for baseline and daily photos
-- Reward-based ad CTA in capture flow
+- Today-first capture flow focused on taking a good photo
+- Daily diary entry for noticing current condition and fine detail
+- Photo library/history for revisiting past records
+- Camera quality guidance and detail-enhancement support
+- Existing compare/report surfaces retained as secondary legacy flows during pivot
 - Simplified home UX (plant switcher + today card + primary capture CTA)
 
 ## Run locally
@@ -91,3 +93,14 @@ Update these values in `granite.config.ts` to match your Apps-in-Toss console ap
 - Same-day photos are overwritten per plant (1 photo per day per plant)
 - Data does not sync between devices
 - Reinstall/device change recovery is not supported in this version
+
+## Current product direction
+
+As of **March 11, 2026**, the app direction is:
+
+- primary value: help users take a better photo of **today's plant**
+- primary outcome: notice the plant's **current detail and condition**
+- supporting surface: photo library / diary archive
+- de-emphasized for now: growth-change scoring, comparison-first storytelling, and ad-to-report as the main journey
+
+Implementation may still contain compare/timeline/report language while follow-up product and camera work catches up. The pivot brief above is the current source of truth for upcoming work.

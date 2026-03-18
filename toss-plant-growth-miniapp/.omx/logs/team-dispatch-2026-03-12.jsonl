@@ -1,0 +1,4 @@
+{"timestamp":"2026-03-12T14:50:41.259Z","type":"dispatch_unconfirmed_retry","team":"review-and-improve-toss-plant","request_id":"ab60be72-887c-4acc-bddc-50342354ec65","worker":"worker-1","attempt":1,"reason":"tmux_send_keys_unconfirmed"}
+{"timestamp":"2026-03-12T14:50:44.402Z","type":"dispatch_unconfirmed_retry","team":"review-and-improve-toss-plant","request_id":"0f53cba7-23c8-4678-b640-827442677f49","worker":"worker-2","attempt":1,"reason":"tmux_send_keys_unconfirmed"}
+{"timestamp":"2026-03-12T14:50:46.773Z","type":"dispatch_notified","team":"review-and-improve-toss-plant","request_id":"2c069813-11f6-47fd-beec-ec22170e642b","worker":"worker-3","message_id":null,"reason":"tmux_send_keys_confirmed"}
+{"timestamp":"2026-03-12T14:50:50.149Z","type":"dispatch_notified","team":"review-and-improve-toss-plant","request_id":"a9117ae9-62f0-4c1c-9399-66e577777b33","worker":"worker-4","message_id":null,"reason":"tmux_send_keys_confirmed"}

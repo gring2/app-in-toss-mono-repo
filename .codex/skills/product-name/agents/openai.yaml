@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Name"
+  short_description: "Brainstorm 5 unique, memorable product names with rationale aligned…"
+  default_prompt: "Use $product-name to brainstorm 5 unique, memorable product names with rationale aligned to brand values and target audience."

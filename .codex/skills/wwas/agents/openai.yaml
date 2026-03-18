@@ -1,0 +1,4 @@
+interface:
+  display_name: "WWAs"
+  short_description: "Create product backlog items in Why-What-Acceptance format"
+  default_prompt: "Use $wwas to create product backlog items in Why-What-Acceptance format."

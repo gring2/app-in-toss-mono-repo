@@ -1,0 +1,4 @@
+interface:
+  display_name: "Metrics Dashboard"
+  short_description: "Define and design a product metrics dashboard with key metrics,…"
+  default_prompt: "Use $metrics-dashboard to define and design a product metrics dashboard with key metrics, data sources, visualization types, and alert thresholds."

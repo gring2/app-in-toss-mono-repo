@@ -1,0 +1,26 @@
+{
+  "active": false,
+  "started_at": "2026-03-09T23:25:00+09:00",
+  "current_phase": "completed",
+  "task_description": "Convert phuryn/pm-skills GitHub repo into project-local Codex skills with command wrappers and metadata",
+  "source_repo": "https://github.com/phuryn/pm-skills",
+  "target_dir": ".codex/skills",
+  "notes": [
+    "source skills already universal",
+    "commands are Claude-specific and need Codex wrappers"
+  ],
+  "iteration": 1,
+  "last_turn_at": "2026-03-09T14:26:03.810Z",
+  "completed_at": "2026-03-09T23:34:30+09:00",
+  "implemented_file": "scripts/convert_pm_skills_to_codex.py",
+  "verification": [
+    "python3 -m py_compile scripts/convert_pm_skills_to_codex.py",
+    "python3 scripts/convert_pm_skills_to_codex.py --dry-run",
+    "lsp diagnostics 0"
+  ],
+  "result": "success",
+  "generated_skill_count": 65,
+  "generated_workflow_count": 36,
+  "hub_skill": "pm-marketplace",
+  "script": "scripts/convert_pm_skills_to_codex.py"
+}

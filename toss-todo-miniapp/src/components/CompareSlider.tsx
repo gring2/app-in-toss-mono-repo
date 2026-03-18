@@ -1,10 +1,10 @@
+import { Text, colors } from '@toss/tds-react-native';
 import React from 'react';
 import {
   Image,
   type LayoutChangeEvent,
   PanResponder,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { toDisplayImageUri } from '../plants/image';
@@ -79,20 +79,34 @@ export function CompareSlider({
       onLayout={handleLayout}
       {...panResponder.panHandlers}
     >
-      <Image source={{ uri: afterUri }} style={styles.image} resizeMode="cover" />
+      <Image
+        source={{ uri: afterUri }}
+        style={styles.image}
+        resizeMode="cover"
+      />
 
       <View style={[styles.beforeLayer, { width: splitWidth }]}>
-        <Image source={{ uri: beforeUri }} style={styles.image} resizeMode="cover" />
+        <Image
+          source={{ uri: beforeUri }}
+          style={styles.image}
+          resizeMode="cover"
+        />
       </View>
 
       <View style={[styles.divider, { left: dividerX }]} />
       <View style={[styles.knob, { left: splitWidth - 18 }]}>
-        <Text style={styles.knobText}>{'< >'}</Text>
+        <Text typography="t7" fontWeight="bold" style={styles.knobText}>
+          {'< >'}
+        </Text>
       </View>
 
       <View style={styles.labels}>
-        <Text style={styles.labelText}>첫날</Text>
-        <Text style={styles.labelText}>오늘</Text>
+        <Text typography="t7" fontWeight="medium" style={styles.labelText}>
+          첫날
+        </Text>
+        <Text typography="t7" fontWeight="medium" style={styles.labelText}>
+          오늘
+        </Text>
       </View>
     </View>
   );
@@ -103,7 +117,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 16,
     overflow: 'hidden',
-    backgroundColor: '#D1D5DB',
+    backgroundColor: colors.grey100,
   },
   image: {
     ...StyleSheet.absoluteFillObject,
@@ -119,7 +133,7 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: 2,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.white,
   },
   knob: {
     position: 'absolute',
@@ -128,14 +142,12 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#111827',
+    backgroundColor: colors.blue500,
     justifyContent: 'center',
     alignItems: 'center',
   },
   knobText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '700',
+    color: colors.white,
   },
   labels: {
     position: 'absolute',
@@ -146,12 +158,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   labelText: {
-    color: '#FFFFFF',
-    backgroundColor: 'rgba(17, 24, 39, 0.7)',
+    color: colors.white,
+    backgroundColor: colors.greyOpacity700,
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 8,
-    fontSize: 12,
-    fontWeight: '600',
+    borderRadius: 10,
   },
 });

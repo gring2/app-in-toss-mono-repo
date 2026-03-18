@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Privacy Policy"
+  short_description: "Draft a privacy policy covering data collection, usage, storage,…"
+  default_prompt: "Use $pm-workflow-privacy-policy to draft a privacy policy covering data collection, usage, storage, and compliance requirements in Codex."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Proofread"
+  short_description: "Check grammar, logic, and flow in any text in Codex"
+  default_prompt: "Use $pm-workflow-proofread to check grammar, logic, and flow in any text in Codex."

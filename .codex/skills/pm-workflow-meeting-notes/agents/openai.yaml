@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Meeting Notes"
+  short_description: "Summarize a meeting transcript into structured notes with…"
+  default_prompt: "Use $pm-workflow-meeting-notes to summarize a meeting transcript into structured notes with decisions, action items, and follow-ups in Codex."

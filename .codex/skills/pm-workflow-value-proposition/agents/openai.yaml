@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Value Proposition"
+  short_description: "Design a value proposition using the 6-part JTBD template in Codex"
+  default_prompt: "Use $pm-workflow-value-proposition to design a value proposition using the 6-part JTBD template in Codex."

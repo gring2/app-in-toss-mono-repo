@@ -1,0 +1,70 @@
+{
+  "active": false,
+  "mode": "ralph",
+  "iteration": 0,
+  "max_iterations": 50,
+  "current_phase": "starting",
+  "task_description": "Implement The Rullet in ./source using .omx/reports/the-rullet-implementation-brief-2026-03-15.md as the source of truth. Read and apply .omx/reports/the-rullet-mono-ui-spec-2026-03-15.md, .omx/reports/the-rullet-retention-ux-handoff-2026-03-15.md, .omx/reports/the-rullet-monetization-guardrails-2026-03-15.md, and .omx/context/rullet-implementation-toss-mood-latest.md. Preserve marble physics, ship Compose -> Draw -> Result, make the UX feel in the same mood as Toss: restrained, trustworthy, mono-first, utility-led, smartphone-friendly, and clearly less like the original Marble Roulette. Keep current WebView runtime unless blocked. Include loading/empty/error states, no core-flow monetization, explicit verification, and architect sign-off before completion.",
+  "started_at": "2026-03-15T12:23:07.922Z",
+  "tmux_pane_id": "%25",
+  "tmux_pane_set_at": "2026-03-15T12:23:07.922Z",
+  "canonical_progress_path": "/Users/jinwoopark/app-in-toss-test/marble-rullet/.omx/state/ralph-progress.json",
+  "available_agent_types": [
+    "analyst",
+    "api-reviewer",
+    "architect",
+    "build-fixer",
+    "code-reviewer",
+    "code-simplifier",
+    "critic",
+    "debugger",
+    "dependency-expert",
+    "designer",
+    "executor",
+    "explore",
+    "explore-harness",
+    "git-master",
+    "information-architect",
+    "performance-reviewer",
+    "planner",
+    "pm-agent",
+    "product-analyst",
+    "product-manager",
+    "qa-tester",
+    "quality-reviewer",
+    "quality-strategist",
+    "researcher",
+    "security-reviewer",
+    "sisyphus-lite",
+    "style-reviewer",
+    "team-executor",
+    "team-orchestrator",
+    "test-engineer",
+    "ux-researcher",
+    "verifier",
+    "vision",
+    "writer"
+  ],
+  "staffing_summary": "test-engineer x1 (primary implementation lane, medium reasoning); test-engineer x1 (evidence + regression checks, medium reasoning); architect x1 (final architecture / completion sign-off, high reasoning)",
+  "staffing_allocations": [
+    {
+      "role": "test-engineer",
+      "count": 1,
+      "reason": "primary implementation lane",
+      "reasoningEffort": "medium"
+    },
+    {
+      "role": "test-engineer",
+      "count": 1,
+      "reason": "evidence + regression checks",
+      "reasoningEffort": "medium"
+    },
+    {
+      "role": "architect",
+      "count": 1,
+      "reason": "final architecture / completion sign-off",
+      "reasoningEffort": "high"
+    }
+  ],
+  "completed_at": "2026-03-16T11:21:18.266Z"
+}

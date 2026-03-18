@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Triage Requests"
+  short_description: "Analyze, categorize, and prioritize a batch of feature requests…"
+  default_prompt: "Use $pm-workflow-triage-requests to analyze, categorize, and prioritize a batch of feature requests from customers or stakeholders in Codex."

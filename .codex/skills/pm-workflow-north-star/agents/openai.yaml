@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow North Star"
+  short_description: "Define your North Star Metric and supporting input metrics in Codex"
+  default_prompt: "Use $pm-workflow-north-star to define your North Star Metric and supporting input metrics in Codex."

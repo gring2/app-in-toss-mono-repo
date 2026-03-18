@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brainstorm Ideas New"
+  short_description: "Brainstorm feature ideas for a new product in initial discovery…"
+  default_prompt: "Use $brainstorm-ideas-new to brainstorm feature ideas for a new product in initial discovery from PM, Designer, and Engineer perspectives."

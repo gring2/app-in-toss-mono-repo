@@ -2,21 +2,34 @@
 
 ## Scope
 - App: `plant-growth-miniapp`
-- Focus: retention-safe ad flow in capture -> compare journey
+- Status: partially stale after the 2026-03-11 product pivot
+- Former focus: retention-safe ad flow in capture -> compare journey
+- Current product focus: today-detail diary capture quality and repeat diary use
 - Event source: `src/pages/capture.tsx`, `src/analytics/events.ts`
 
 ## KPI Guardrails
+
+### Current primary KPIs
 - Retention:
   - D1 retention (non-regression vs baseline)
   - D7 retention (non-regression vs baseline)
   - Repeat visit rate
+- Product behavior:
+  - Daily capture completion rate
+  - Good-photo save rate after quality guidance
+  - Repeat diary entry rate per active plant
+
+### Deferred / legacy KPIs
 - Monetization:
   - Ad watch intent rate (`capture_ad_watch_clicked / capture_post_step_entered`)
   - Ad show success rate (`capture_ad_show_success / capture_ad_show_requested`)
   - Ad fail rate (`capture_ad_show_failed / capture_ad_show_requested`)
   - Skip rate (`capture_ad_skip_clicked / capture_post_step_entered`)
 
+> Keep the ad funnel queries only as support for existing runtime behavior. Do not treat them as the core product dashboard until monetization direction is revisited.
+
 ## Event Dictionary (Capture Ad Flow)
+Legacy support dictionary for the currently implemented ad/report path:
 - `capture_post_step_entered`
 - `capture_ad_ready_state`
 - `capture_ad_watch_clicked`
@@ -81,6 +94,14 @@ ORDER BY navigations DESC;
   - `show_success_rate < 0.8`
   - `show_failed / show_requested > 0.2`
 - Block rollout when crash/blocker reports align with high `capture_ad_show_failed` spikes.
+
+## Follow-up Needed
+- Define a new event spec for:
+  - today's diary entry started/completed
+  - quality guidance shown / accepted / dismissed
+  - detail-view revisit behavior
+  - library/archive revisit behavior
+- Revisit monetization only after the diary-first core flow is stable.
 
 ## Submission Attachment Checklist
 - Include this file in submission evidence package.

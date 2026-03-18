@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stakeholder Map"
+  short_description: "Build a stakeholder map using a power/interest grid, identify…"
+  default_prompt: "Use $stakeholder-map to build a stakeholder map using a power/interest grid, identify communication strategies per quadrant, and generate a communication plan."

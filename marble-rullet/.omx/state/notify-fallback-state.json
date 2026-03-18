@@ -1,0 +1,48 @@
+{
+  "pid": 66166,
+  "parent_pid": 10215,
+  "started_at": "2026-03-16T11:21:22.564Z",
+  "cwd": "/Users/jinwoopark/app-in-toss-test/marble-rullet",
+  "notify_script": "/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js",
+  "poll_ms": 250,
+  "pid_file": null,
+  "max_lifetime_ms": 0,
+  "tracked_files": 1,
+  "seen_turns": 1,
+  "dispatch_drain": {
+    "enabled": true,
+    "max_per_tick": 5,
+    "run_count": 1,
+    "leader_only": true,
+    "last_tick_at": "2026-03-16T11:21:22.668Z",
+    "last_result": {
+      "processed": 0,
+      "skipped": 0,
+      "failed": 0
+    },
+    "last_error": null
+  },
+  "leader_nudge": {
+    "enabled": true,
+    "run_count": 1,
+    "leader_only": true,
+    "stale_threshold_ms": 180000,
+    "precomputed_leader_stale": false,
+    "last_tick_at": "2026-03-16T11:21:22.668Z",
+    "last_error": null
+  },
+  "ralph_continue_steer": {
+    "enabled": true,
+    "cadence_ms": 60000,
+    "message": "Ralph loop active continue",
+    "active": false,
+    "last_state_check_at": "2026-03-16T11:21:22.670Z",
+    "last_sent_at": "2026-03-15T12:39:02.036Z",
+    "last_reason": "terminal",
+    "last_error": null,
+    "state_path": "/Users/jinwoopark/app-in-toss-test/marble-rullet/.omx/state/ralph-state.json",
+    "pane_id": "%25",
+    "pane_current_command": "",
+    "current_phase": "starting"
+  }
+}

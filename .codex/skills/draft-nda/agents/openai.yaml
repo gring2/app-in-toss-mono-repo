@@ -1,0 +1,4 @@
+interface:
+  display_name: "Draft NDA"
+  short_description: "Draft a detailed Non-Disclosure Agreement between two parties…"
+  default_prompt: "Use $draft-nda to draft a detailed Non-Disclosure Agreement between two parties covering information types, jurisdiction, and clauses needing legal review."

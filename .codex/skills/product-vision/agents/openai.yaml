@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Vision"
+  short_description: "Brainstorm an inspiring, achievable, and emotional product vision…"
+  default_prompt: "Use $product-vision to brainstorm an inspiring, achievable, and emotional product vision that motivates teams and aligns stakeholders."

@@ -1,6 +1,7 @@
 import { createRoute } from '@granite-js/react-native';
+import { Button, Text, colors } from '@toss/tds-react-native';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export const Route = createRoute('/about', {
   component: Page,
@@ -14,59 +15,42 @@ function Page() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>About Granite</Text>
-      <Text style={styles.description}>
-        Granite is a powerful and flexible React Native Framework 🚀
-      </Text>
-      <TouchableOpacity style={styles.button} onPress={handleGoBack}>
-        <Text style={styles.buttonText}>Go Back</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Text typography="t3" fontWeight="bold">
+          About Granite
+        </Text>
+        <Text typography="t6" color={colors.grey700} style={styles.description}>
+          Granite is a powerful and flexible React Native Framework.
+        </Text>
+        <Button
+          size="medium"
+          display="block"
+          onPress={handleGoBack}
+          viewStyle={styles.fullButton}
+        >
+          Go Back
+        </Button>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.grey50,
+  },
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: '#F7FAFC',
-    alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1A202C',
-    marginBottom: 16,
-    textAlign: 'center',
+    gap: 12,
   },
   description: {
-    fontSize: 18,
-    color: '#4A5568',
-    textAlign: 'center',
     marginBottom: 12,
-    lineHeight: 26,
   },
-  button: {
-    marginTop: 24,
-    backgroundColor: '#0064FF',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  fullButton: {
+    width: '100%',
   },
 });

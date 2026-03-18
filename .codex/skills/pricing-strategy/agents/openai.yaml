@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pricing Strategy"
+  short_description: "Analyze and design pricing strategies including pricing models,…"
+  default_prompt: "Use $pricing-strategy to analyze and design pricing strategies including pricing models, competitive pricing analysis, willingness-to-pay estimation, and price elasticity."

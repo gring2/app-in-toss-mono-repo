@@ -1,0 +1,9 @@
+{"timestamp":"2026-03-16T11:21:18.258Z","type":"watcher_start","cwd":"/Users/jinwoopark/app-in-toss-test/marble-rullet","notify_script":"/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js","poll_ms":250,"once":true,"parent_pid":42947,"pid_file":null,"max_lifetime_ms":0}
+{"timestamp":"2026-03-16T11:21:18.260Z","type":"dispatch_drain_tick","leader_only":true,"dispatch_max_per_tick":5,"run_count":1,"processed":0,"skipped":0,"failed":0}
+{"timestamp":"2026-03-16T11:21:18.261Z","type":"leader_nudge_tick","leader_only":true,"run_count":1,"stale_threshold_ms":180000,"precomputed_leader_stale":true,"reason":"leader_nudge_checked"}
+{"timestamp":"2026-03-16T11:21:18.261Z","type":"watcher_once_complete","seen_turns":0}
+{"timestamp":"2026-03-16T11:21:22.566Z","type":"watcher_start","cwd":"/Users/jinwoopark/app-in-toss-test/marble-rullet","notify_script":"/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js","poll_ms":250,"once":true,"parent_pid":10215,"pid_file":null,"max_lifetime_ms":0}
+{"timestamp":"2026-03-16T11:21:22.668Z","type":"fallback_notify","ok":true,"thread_id":"019cf157-e772-7cb1-aa41-884d67aa0e8e","turn_id":"019cf661-0872-7043-a0ed-27d5b8a1054f","file":"/Users/jinwoopark/.codex/sessions/2026/03/15/rollout-2026-03-15T20-53-15-019cf157-e772-7cb1-aa41-884d67aa0e8e.jsonl","reason":"sent"}
+{"timestamp":"2026-03-16T11:21:22.668Z","type":"dispatch_drain_tick","leader_only":true,"dispatch_max_per_tick":5,"run_count":1,"processed":0,"skipped":0,"failed":0}
+{"timestamp":"2026-03-16T11:21:22.670Z","type":"leader_nudge_tick","leader_only":true,"run_count":1,"stale_threshold_ms":180000,"precomputed_leader_stale":false,"reason":"leader_nudge_checked"}
+{"timestamp":"2026-03-16T11:21:22.671Z","type":"watcher_once_complete","seen_turns":1}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Opportunity Solution Tree"
+  short_description: "Build an Opportunity Solution Tree (OST) to structure product discovery"
+  default_prompt: "Use $opportunity-solution-tree to build an Opportunity Solution Tree (OST) to structure product discovery."

@@ -1,16 +1,31 @@
+import { Text, colors } from '@toss/tds-react-native';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 
 export default function NotFoundPage() {
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: colors.grey50,
       }}
     >
-      <Text>404 Not Found</Text>
-    </View>
+      <View
+        style={{
+          flex: 1,
+          paddingHorizontal: 24,
+          gap: 8,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Text typography="t3" fontWeight="bold">
+          404
+        </Text>
+        <Text typography="t6" color={colors.grey700}>
+          페이지를 찾을 수 없어요.
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Market Scan"
+  short_description: "Run macro environment analysis in Codex"
+  default_prompt: "Use $pm-workflow-market-scan to run macro environment analysis in Codex."

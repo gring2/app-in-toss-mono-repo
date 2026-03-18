@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Stakeholder Map"
+  short_description: "Map stakeholders on a Power × Interest grid and create a tailored…"
+  default_prompt: "Use $pm-workflow-stakeholder-map to map stakeholders on a Power × Interest grid and create a tailored communication plan in Codex."

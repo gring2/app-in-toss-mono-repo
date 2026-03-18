@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Pre Mortem"
+  short_description: "Run a pre-mortem risk analysis on a PRD, launch plan, or feature in…"
+  default_prompt: "Use $pm-workflow-pre-mortem to run a pre-mortem risk analysis on a PRD, launch plan, or feature in Codex."

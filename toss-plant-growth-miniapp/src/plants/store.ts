@@ -15,6 +15,10 @@ export type PlantPhoto = {
   dataUri: string;
   mimeType: string;
   isBaseline: boolean;
+  sourceDataUri?: string;
+  sourceMimeType?: string;
+  enhancementVersion?: string;
+  enhancementStatus?: 'enhanced' | 'raw_fallback';
 };
 
 export type ReportBadge = 'weekly-7';
@@ -169,13 +173,24 @@ function isPlantPhoto(value: unknown): value is PlantPhoto {
     return false;
   }
 
+  const sourceDataUri = value.sourceDataUri;
+  const sourceMimeType = value.sourceMimeType;
+  const enhancementVersion = value.enhancementVersion;
+  const enhancementStatus = value.enhancementStatus;
+
   return (
     typeof value.id === 'string' &&
     typeof value.plantId === 'string' &&
     typeof value.capturedAt === 'string' &&
     typeof value.dataUri === 'string' &&
     typeof value.mimeType === 'string' &&
-    typeof value.isBaseline === 'boolean'
+    typeof value.isBaseline === 'boolean' &&
+    (sourceDataUri == null || typeof sourceDataUri === 'string') &&
+    (sourceMimeType == null || typeof sourceMimeType === 'string') &&
+    (enhancementVersion == null || typeof enhancementVersion === 'string') &&
+    (enhancementStatus == null ||
+      enhancementStatus === 'enhanced' ||
+      enhancementStatus === 'raw_fallback')
   );
 }
 
@@ -835,11 +850,19 @@ export function createPlantBaseline({
   dataUri,
   mimeType,
   capturedAt = new Date().toISOString(),
+  sourceDataUri,
+  sourceMimeType,
+  enhancementVersion,
+  enhancementStatus,
 }: {
   name?: string;
   dataUri: string;
   mimeType: string;
   capturedAt?: string;
+  sourceDataUri?: string;
+  sourceMimeType?: string;
+  enhancementVersion?: string;
+  enhancementStatus?: 'enhanced' | 'raw_fallback';
 }): CreatePlantBaselineResult {
   if (!canCreatePlant(stateCache)) {
     return { ok: false, reason: 'slot_limit_reached' };
@@ -870,6 +893,10 @@ export function createPlantBaseline({
     dataUri,
     mimeType,
     isBaseline: true,
+    sourceDataUri,
+    sourceMimeType,
+    enhancementVersion,
+    enhancementStatus,
   };
 
   updateState((current) => ({
@@ -887,11 +914,19 @@ export function addDailyPhoto({
   mimeType,
   capturedAt = new Date().toISOString(),
   plantId,
+  sourceDataUri,
+  sourceMimeType,
+  enhancementVersion,
+  enhancementStatus,
 }: {
   dataUri: string;
   mimeType: string;
   capturedAt?: string;
   plantId?: string;
+  sourceDataUri?: string;
+  sourceMimeType?: string;
+  enhancementVersion?: string;
+  enhancementStatus?: 'enhanced' | 'raw_fallback';
 }) {
   const activePlant = getActivePlant(stateCache);
   const targetPlantId = plantId ?? activePlant?.id ?? null;
@@ -938,6 +973,10 @@ export function addDailyPhoto({
       dataUri,
       mimeType,
       isBaseline: replaceTarget?.isBaseline ?? false,
+      sourceDataUri,
+      sourceMimeType,
+      enhancementVersion,
+      enhancementStatus,
     };
 
     const nextPhotos = [

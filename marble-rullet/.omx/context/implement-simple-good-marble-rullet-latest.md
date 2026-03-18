@@ -1,0 +1,27 @@
+# Context Snapshot
+
+- task statement: Implement the Simple and Good Marble Rullet
+- desired outcome: Ship a working Apps-in-Toss-ready redesign of Marble Roulette with simpler Toss-style Setup -> Draw -> Result UX, preserving marble physics while replacing the legacy cluttered UI.
+- known facts/evidence:
+  - Workspace root is /Users/jinwoopark/app-in-toss-test/marble-rullet
+  - Existing source app lives in ./source and builds successfully.
+  - Existing app is TypeScript + Parcel + canvas + box2d-wasm.
+  - Bundle size is small enough for Apps-in-Toss limits.
+  - Current UX direction approved in-chat: simple mobile-first flow, no exact clone, no backend for V1, no recording/export/analytics/service worker for MVP.
+  - Recommended product framing: Marble Draw / Lucky Draw utility rather than roulette/gambling language.
+- constraints:
+  - Must honor AGENTS.md workflow/guardrails for Apps-in-Toss miniapps.
+  - Implementation should follow approved UX/UI direction before coding.
+  - User explicitly requested $team + $ralph workflow.
+  - Need evidence-based completion with verification.
+- unknowns/open questions:
+  - Whether to keep Parcel/vanilla stack or move to React/TDS shell during implementation.
+  - Final appName/icon values for granite.config.ts.
+  - Whether to target partner nav immediately or keep game nav during spike.
+- likely codebase touchpoints:
+  - source/package.json
+  - source/index.html
+  - source/assets/style.scss
+  - source/src/index.ts
+  - source/src/roulette.ts and engine files under source/src
+  - new config/build files for Apps-in-Toss integration (likely granite.config.ts and shell files)

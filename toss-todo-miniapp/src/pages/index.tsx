@@ -1,7 +1,7 @@
 import { createRoute } from '@granite-js/react-native';
-import { Button } from '@toss/tds-react-native';
+import { Button, List, ListRow, Text, colors } from '@toss/tds-react-native';
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { CompareSlider } from '../components/CompareSlider';
 import { usePlantGrowth } from '../hooks/usePlantGrowth';
 
@@ -28,11 +28,19 @@ function formatDateLabel(isoDate: string | null) {
 
 function Page() {
   const navigation = Route.useNavigation();
-  const { comparePair, isReady, profile, photos, canCaptureToday, lastCapturedAt } =
-    usePlantGrowth();
+  const {
+    comparePair,
+    isReady,
+    profile,
+    photos,
+    canCaptureToday,
+    lastCapturedAt,
+  } = usePlantGrowth();
 
   const isOnboarding = profile == null || comparePair == null;
-  const captureLabel = canCaptureToday ? '오늘 사진 남기기' : '오늘 사진 다시 남기기';
+  const captureLabel = canCaptureToday
+    ? '오늘 사진 남기기'
+    : '오늘 사진 다시 남기기';
 
   const openBaselineCapture = () => {
     navigation.navigate('/capture', {
@@ -52,24 +60,38 @@ function Page() {
         style={styles.screen}
         contentContainerStyle={styles.contentContainer}
       >
-        <Text style={styles.title}>Plant Growth Diary</Text>
-        <Text style={styles.subtitle}>
+        <Text typography="t2" fontWeight="bold">
+          Plant Growth Diary
+        </Text>
+        <Text typography="t6" color={colors.grey700}>
           첫날과 오늘을 나란히 보며 식물의 변화를 즐겨요.
         </Text>
 
         {!isReady ? (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyTitle}>기록을 불러오는 중이에요</Text>
-            <Text style={styles.emptyDescription}>
-              로컬 저장소에서 식물 기록을 복구하고 있어요.
-            </Text>
-          </View>
+          <List style={styles.panel} rowSeparator="none">
+            <ListRow
+              contents={
+                <ListRow.Texts
+                  type="2RowTypeA"
+                  top="기록을 불러오는 중이에요"
+                  bottom="로컬 저장소에서 식물 기록을 복구하고 있어요."
+                />
+              }
+            />
+          </List>
         ) : isOnboarding ? (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyTitle}>식물의 첫 모습을 남겨요</Text>
-            <Text style={styles.emptyDescription}>
-              첫 사진이 기준이 되고, 이후 사진과 자동 비교돼요.
-            </Text>
+          <View style={styles.section}>
+            <List style={styles.panel} rowSeparator="none">
+              <ListRow
+                contents={
+                  <ListRow.Texts
+                    type="2RowTypeA"
+                    top="식물의 첫 모습을 남겨요"
+                    bottom="첫 사진이 기준이 되고, 이후 사진과 자동 비교돼요."
+                  />
+                }
+              />
+            </List>
             <Button
               size="medium"
               display="block"
@@ -87,16 +109,37 @@ function Page() {
               afterDataUri={comparePair.latest.dataUri}
               afterMimeType={comparePair.latest.mimeType}
             />
-            <View style={styles.metaCard}>
-              <Text style={styles.metaTitle}>첫날 vs 오늘 자동비교</Text>
-              <Text style={styles.metaText}>
-                첫 기록: {formatDateLabel(comparePair.baseline.capturedAt)}
-              </Text>
-              <Text style={styles.metaText}>
-                최신 기록: {formatDateLabel(lastCapturedAt)}
-              </Text>
-              <Text style={styles.metaText}>총 사진 수: {photos.length}장</Text>
-            </View>
+            <List style={styles.panel} rowSeparator="full">
+              <ListRow
+                contents={
+                  <ListRow.Texts type="1RowTypeA" top="첫날 vs 오늘 자동비교" />
+                }
+              />
+              <ListRow
+                contents={
+                  <ListRow.Texts
+                    type="1RowTypeA"
+                    top={`첫 기록: ${formatDateLabel(comparePair.baseline.capturedAt)}`}
+                  />
+                }
+              />
+              <ListRow
+                contents={
+                  <ListRow.Texts
+                    type="1RowTypeA"
+                    top={`최신 기록: ${formatDateLabel(lastCapturedAt)}`}
+                  />
+                }
+              />
+              <ListRow
+                contents={
+                  <ListRow.Texts
+                    type="1RowTypeA"
+                    top={`총 사진 수: ${photos.length}장`}
+                  />
+                }
+              />
+            </List>
             <Button
               size="medium"
               display="block"
@@ -125,7 +168,7 @@ function Page() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F7F8FA',
+    backgroundColor: colors.grey50,
   },
   screen: {
     flex: 1,
@@ -135,53 +178,12 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     gap: 16,
   },
-  title: {
-    fontSize: 30,
-    fontWeight: '700',
-    color: '#111827',
-  },
-  subtitle: {
-    fontSize: 15,
-    color: '#374151',
-  },
-  emptyState: {
-    borderRadius: 16,
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 24,
-    paddingHorizontal: 16,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    gap: 8,
-  },
-  emptyTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#111827',
-  },
-  emptyDescription: {
-    fontSize: 14,
-    color: '#6B7280',
-  },
   section: {
     gap: 12,
   },
-  metaCard: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
+  panel: {
     borderRadius: 14,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    gap: 6,
-  },
-  metaTitle: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#111827',
-  },
-  metaText: {
-    fontSize: 14,
-    color: '#4B5563',
+    overflow: 'hidden',
   },
   primaryButton: {
     width: '100%',

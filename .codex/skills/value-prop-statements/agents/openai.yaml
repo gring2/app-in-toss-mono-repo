@@ -1,0 +1,4 @@
+interface:
+  display_name: "Value Prop Statements"
+  short_description: "Generate value proposition statements for marketing, sales, and…"
+  default_prompt: "Use $value-prop-statements to generate value proposition statements for marketing, sales, and onboarding from existing value propositions."

@@ -1,12 +1,12 @@
-import { createRoute } from '@granite-js/react-native';
-import { Button } from '@toss/tds-react-native';
 import {
   loadFullScreenAd,
   saveBase64Data,
   showFullScreenAd,
 } from '@apps-in-toss/framework';
+import { createRoute } from '@granite-js/react-native';
+import { Button, List, ListRow, Text, colors } from '@toss/tds-react-native';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { CompareSlider } from '../components/CompareSlider';
 import { usePlantGrowth } from '../hooks/usePlantGrowth';
 import type { PlantPhoto } from '../plants/store';
@@ -112,7 +112,9 @@ function Page() {
     }
 
     if (!isAdLoaded) {
-      setStatusMessage('광고를 아직 불러오지 못했어요. 잠시 후 다시 시도해주세요.');
+      setStatusMessage(
+        '광고를 아직 불러오지 못했어요. 잠시 후 다시 시도해주세요.',
+      );
       return;
     }
 
@@ -165,14 +167,25 @@ function Page() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
-          <Text style={styles.title}>비교할 사진이 없어요</Text>
-          <Text style={styles.subtitle}>
-            첫 사진을 찍으면 첫날 vs 오늘 비교를 바로 볼 수 있어요.
+          <Text typography="t3" fontWeight="bold">
+            비교할 사진이 없어요
           </Text>
+          <List style={styles.panel} rowSeparator="none">
+            <ListRow
+              contents={
+                <ListRow.Texts
+                  type="1RowTypeA"
+                  top="첫 사진을 찍으면 첫날 vs 오늘 비교를 바로 볼 수 있어요."
+                />
+              }
+            />
+          </List>
           <Button
             size="medium"
             display="block"
-            onPress={() => navigation.navigate('/capture', { mode: 'baseline' })}
+            onPress={() =>
+              navigation.navigate('/capture', { mode: 'baseline' })
+            }
             viewStyle={styles.fullButton}
           >
             첫 사진 찍기
@@ -185,8 +198,10 @@ function Page() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.title}>첫날 vs 오늘</Text>
-        <Text style={styles.subtitle}>
+        <Text typography="t3" fontWeight="bold">
+          첫날 vs 오늘
+        </Text>
+        <Text typography="t6" color={colors.grey700}>
           슬라이더를 움직이며 성장을 확인해보세요.
         </Text>
 
@@ -198,9 +213,20 @@ function Page() {
           height={320}
         />
 
-        <View style={styles.statusBox}>
-          <Text style={styles.statusText}>{statusMessage}</Text>
-        </View>
+        <List style={styles.panel} rowSeparator="none">
+          <ListRow
+            contents={
+              <ListRow.Texts
+                type="1RowTypeA"
+                top={
+                  statusMessage.length > 0
+                    ? statusMessage
+                    : '고화질 저장 버튼을 눌러 광고 상태를 확인해보세요.'
+                }
+              />
+            }
+          />
+        </List>
 
         <Button
           size="medium"
@@ -234,7 +260,7 @@ function Page() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F7F8FA',
+    backgroundColor: colors.grey50,
   },
   container: {
     flex: 1,
@@ -242,26 +268,9 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     gap: 12,
   },
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#111827',
-  },
-  subtitle: {
-    fontSize: 15,
-    color: '#4B5563',
-  },
-  statusBox: {
+  panel: {
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-  },
-  statusText: {
-    fontSize: 14,
-    color: '#374151',
+    overflow: 'hidden',
   },
   fullButton: {
     width: '100%',

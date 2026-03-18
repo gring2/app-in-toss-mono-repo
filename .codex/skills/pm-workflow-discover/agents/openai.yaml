@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Discover"
+  short_description: "Run a full product discovery cycle in Codex"
+  default_prompt: "Use $pm-workflow-discover to run a full product discovery cycle in Codex."

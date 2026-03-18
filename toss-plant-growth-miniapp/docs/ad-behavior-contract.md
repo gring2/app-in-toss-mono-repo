@@ -1,5 +1,7 @@
 # Ad Behavior Contract — Capture to Report Flow
 
+> Status note (2026-03-11): this contract documents a **legacy supporting flow**, not the primary product journey after the today's-detail diary pivot.
+
 ## Purpose
 Make rewarded full-screen ad behavior explicit and testable to avoid ambiguous user outcomes.
 

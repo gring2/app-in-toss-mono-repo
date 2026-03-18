@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Analyze Test"
+  short_description: "Analyze A/B test results in Codex"
+  default_prompt: "Use $pm-workflow-analyze-test to analyze A/B test results in Codex."

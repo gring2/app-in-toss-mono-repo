@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Setup Metrics"
+  short_description: "Design a product metrics dashboard with North Star metric, input…"
+  default_prompt: "Use $pm-workflow-setup-metrics to design a product metrics dashboard with North Star metric, input metrics, health metrics, and alert thresholds in Codex."

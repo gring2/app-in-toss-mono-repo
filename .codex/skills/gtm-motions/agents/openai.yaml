@@ -1,0 +1,4 @@
+interface:
+  display_name: "GTM Motions"
+  short_description: "Identify the best GTM motions and tools across 7 motion types"
+  default_prompt: "Use $gtm-motions to identify the best GTM motions and tools across 7 motion types."

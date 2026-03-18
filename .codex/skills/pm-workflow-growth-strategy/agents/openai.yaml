@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Workflow Growth Strategy"
+  short_description: "Design sustainable growth mechanisms in Codex"
+  default_prompt: "Use $pm-workflow-growth-strategy to design sustainable growth mechanisms in Codex."
