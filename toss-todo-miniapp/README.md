@@ -2,9 +2,9 @@
 
 This project is a Granite-based React Native miniapp configured for Apps-in-Toss.
 
-## Team workflow
+## Custom subagent workflow
 
-Agent-based delivery workflow lives at [`../AGENTS.md`](../AGENTS.md).
+Project-scoped Codex custom subagents live in [`../.codex/agents`](../.codex/agents) and the shared monorepo Toss miniapp rules live at [`../AGENTS.md`](../AGENTS.md).
 
 ## Included features
 

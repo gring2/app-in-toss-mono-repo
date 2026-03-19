@@ -5,13 +5,13 @@ Define a repeatable, evidence-first workflow that reduces rework for config, ads
 
 ## Scope
 - Applies to `toss-plant-growth-miniapp` delivery workflow.
-- Aligns with team roles and gate order defined in `../AGENTS.md`.
+- Aligns with the project-scoped custom subagents defined in `../AGENTS.md`.
 - Uses canonical templates from `docs/templates/`.
 
 ## Delivery Gates and Required Outputs
 
 ### 1) Spec Gate
-**Owners:** Retention UX Specialist + Apps-in-Toss Monetization Specialist  
+**Owners:** `retention_ux_specialist` + `apps_in_toss_monetization_specialist`  
 **Required outputs:**
 - Retention hypothesis, KPI targets, guardrails
 - Monetization plan (placement/pacing/frequency)
@@ -19,33 +19,33 @@ Define a repeatable, evidence-first workflow that reduces rework for config, ads
 - Event instrumentation spec
 
 ### 2) Design Gate
-**Owner:** Toss Miniapp UI Designer  
+**Owner:** `toss_miniapp_ui_designer`  
 **Required outputs:**
 - TDS component mapping (`docs/tds-component-mapping.md`)
 - Screen states (loading/empty/error)
 - Toss constraints and interaction notes
 
 ### 3) Build Gate
-**Owner:** toss_miniapp_developer  
+**Owner:** `toss_miniapp_developer`  
 **Required outputs:**
 - Minimal implementation diff tied to approved specs
 - Tests or explicit test-gap note
 - Behavior contracts updated for changed flows
 
 ### 4) Submission Readiness Gate
-**Owner:** Toss Submission Readiness Specialist  
+**Owner:** `toss_submission_readiness_specialist`  
 **Required outputs:**
 - Mandatory report from `../AGENTS.md`
 - Release evidence bundle (commands, logs, artifact, risk/rollback notes)
 
 ### 5) Review Gate
-**Owner:** toss_miniapp_reviewer  
+**Owner:** `toss_miniapp_reviewer`  
 **Required outputs:**
 - Regression + policy review verdict
 - Checklist pass/fail with blocking reasons
 
 ### 6) Run Gate
-**Owner:** awaiter  
+**Owner:** `awaiter`  
 **Required outputs:**
 - Command pass/fail summary
 - Critical logs only
