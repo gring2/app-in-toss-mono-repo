@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "active": false,
-  "skill": "ralplan",
-  "keyword": "$ralplan",
-  "phase": "completing",
-  "activated_at": "2026-03-15T12:04:45.433Z",
-  "updated_at": "2026-03-16T11:21:22.664Z",
+  "active": true,
+  "skill": "ralph",
+  "keyword": "Ralph",
+  "phase": "reviewing",
+  "activated_at": "2026-03-21T10:44:17.052Z",
+  "updated_at": "2026-03-21T14:54:49.034Z",
   "source": "keyword-detector",
   "input_lock": null
 }

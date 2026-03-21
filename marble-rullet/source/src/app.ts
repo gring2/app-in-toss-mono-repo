@@ -1,3 +1,4 @@
+import { createWebviewBannerAdController } from './ads/webview/banner/service';
 import options from './options';
 import type { Roulette, RouletteLeaderboardEntry } from './roulette';
 import { parseName } from './utils/utils';
@@ -113,7 +114,13 @@ export function bootstrapApp(roulette: Roulette) {
     drawScreen: qs<HTMLElement>('[data-screen="draw"]'),
     resultScreen: qs<HTMLElement>('[data-screen="result"]'),
     composeState: qs<HTMLElement>('#composeState'),
-    input: qs<HTMLTextAreaElement>('#inNames'),
+    quickAddInput: qs<HTMLInputElement>('#quickAddName'),
+    quickAddButton: qs<HTMLButtonElement>('#btnQuickAddName'),
+    quickEditCancelButton: qs<HTMLButtonElement>('#btnCancelQuickEdit'),
+    dedupeNamesButton: qs<HTMLButtonElement>('#btnDedupeNames'),
+    clearAllNamesButton: qs<HTMLButtonElement>('#btnClearAllNames'),
+    namePreview: qs<HTMLElement>('#namePreview'),
+    namePreviewCount: qs<HTMLElement>('#namePreviewCount'),
     inputHelper: qs<HTMLParagraphElement>('#inputHelper'),
     participantCount: qs<HTMLElement>('#participantCount'),
     ctaTitle: qs<HTMLElement>('#ctaTitle'),
@@ -142,6 +149,8 @@ export function bootstrapApp(roulette: Roulette) {
     resultMeta: qs<HTMLElement>('#resultMeta'),
     resultList: qs<HTMLOListElement>('#resultList'),
     rankingCount: qs<HTMLElement>('#rankingCount'),
+    bannerAdSection: qs<HTMLElement>('#bannerAdSection'),
+    bannerAdSlot: qs<HTMLElement>('#bannerAdSlot'),
     rerunButton: qs<HTMLButtonElement>('#btnRerun'),
     editNamesButton: qs<HTMLButtonElement>('#btnEditNames'),
     copyResultButton: qs<HTMLButtonElement>('#btnCopyResult'),
@@ -219,18 +228,188 @@ export function bootstrapApp(roulette: Roulette) {
     drawErrorMessage: '',
     inputSource: (readStoredValue(STORAGE_KEYS.names) ? 'restored' : 'manual') as 'manual' | 'preset' | 'restored',
     lastDrawStartedAt: 0,
+    editingName: null as string | null,
+    draftNames: normalizeNames(parseInputNames(readStoredValue(STORAGE_KEYS.names) ?? '')),
   };
+
+  const bannerAdController = createWebviewBannerAdController({
+    elements: {
+      body: elements.body,
+      section: elements.bannerAdSection,
+      slot: elements.bannerAdSlot,
+    },
+    track,
+  });
 
   const switchScreen = (screen: 'compose' | 'draw' | 'result') => {
     elements.body.classList.remove('mode-compose', 'mode-draw', 'mode-result');
     elements.body.classList.add(`mode-${screen}`);
+
+    bannerAdController.onScreenChange(screen);
   };
 
   const persistText = () => {
-    writeStoredValue(STORAGE_KEYS.names, elements.input.value);
+    writeStoredValue(STORAGE_KEYS.names, state.draftNames.join('\n'));
   };
 
-  const getNames = () => parseInputNames(elements.input.value);
+  const getNames = () => state.draftNames.slice();
+  let draggedName: string | null = null;
+
+  const setInputNames = (names: string[], source: 'manual' | 'preset' | 'restored' = 'manual') => {
+    state.draftNames = names.slice();
+    state.inputSource = source;
+    persistText();
+    updateFormState();
+  };
+
+  const resetQuickEditor = () => {
+    state.editingName = null;
+    elements.quickAddInput.value = '';
+    elements.quickAddInput.placeholder = '한 명씩 빠르게 추가';
+    elements.quickAddButton.textContent = '추가';
+    elements.quickEditCancelButton.classList.add('is-hidden');
+  };
+
+  const startQuickEdit = (name: string) => {
+    state.editingName = name;
+    elements.quickAddInput.value = name;
+    elements.quickAddInput.placeholder = '이름 수정';
+    elements.quickAddButton.textContent = '수정';
+    elements.quickEditCancelButton.classList.remove('is-hidden');
+    elements.quickAddInput.focus();
+    elements.quickAddInput.select();
+  };
+
+  const renderNamePreview = (names: string[]) => {
+    const normalized = normalizeNames(names);
+    elements.namePreviewCount.textContent = countLabel(normalized.length);
+    elements.namePreview.innerHTML = '';
+
+    if (!normalized.length) {
+      elements.namePreview.classList.add('is-empty');
+      elements.namePreview.textContent = '이름을 입력하면 보기 쉬운 카드 형태로 정리돼요.';
+      return;
+    }
+
+    elements.namePreview.classList.remove('is-empty');
+    const fragment = document.createDocumentFragment();
+
+    normalized.forEach((name, index) => {
+      const item = document.createElement('li');
+      item.className = 'name-preview-item';
+      item.draggable = true;
+      item.dataset.name = name;
+      const indexBadge = document.createElement('span');
+      indexBadge.className = 'name-preview-index';
+      indexBadge.textContent = String(index + 1);
+
+      const text = document.createElement('span');
+      text.className = 'name-preview-text';
+      text.textContent = name;
+
+      const reorderHandle = document.createElement('span');
+      reorderHandle.className = 'name-preview-reorder';
+      reorderHandle.textContent = '순서';
+      reorderHandle.title = '드래그해서 순서 변경';
+
+      const moveButtons = document.createElement('div');
+      moveButtons.className = 'name-preview-move';
+
+      const moveUpButton = document.createElement('button');
+      moveUpButton.type = 'button';
+      moveUpButton.className = 'name-preview-move-btn';
+      moveUpButton.dataset.name = name;
+      moveUpButton.dataset.move = 'up';
+      moveUpButton.textContent = '↑';
+
+      const moveDownButton = document.createElement('button');
+      moveDownButton.type = 'button';
+      moveDownButton.className = 'name-preview-move-btn';
+      moveDownButton.dataset.name = name;
+      moveDownButton.dataset.move = 'down';
+      moveDownButton.textContent = '↓';
+
+      moveButtons.append(moveUpButton, moveDownButton);
+
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'name-preview-remove';
+      removeButton.dataset.name = name;
+      removeButton.textContent = '삭제';
+
+      item.append(indexBadge, text, reorderHandle, moveButtons, removeButton);
+      fragment.appendChild(item);
+    });
+
+    elements.namePreview.appendChild(fragment);
+  };
+
+  const addQuickName = () => {
+    const nextName = elements.quickAddInput.value.trim();
+    if (!nextName) {
+      elements.quickAddInput.focus();
+      return;
+    }
+
+    if (state.editingName) {
+      const currentNames = normalizeNames(getNames());
+      const editingIndex = currentNames.indexOf(state.editingName);
+      const nextNames =
+        editingIndex >= 0
+          ? normalizeNames(currentNames.map((name, index) => (index === editingIndex ? nextName : name)))
+          : normalizeNames([...currentNames, nextName]);
+
+      setInputNames(nextNames, 'manual');
+      resetQuickEditor();
+      showToast('참여자 이름을 수정했어요.');
+      track('participant_edited', { participant_count: nextNames.length });
+      return;
+    }
+
+    const mergedNames = normalizeNames([...getNames(), nextName]);
+    setInputNames(mergedNames, 'manual');
+    resetQuickEditor();
+    elements.quickAddInput.focus();
+    showToast('참여자를 추가했어요.');
+    track('participant_added', { participant_count: mergedNames.length });
+  };
+
+  const reorderNames = (names: string[], fromName: string, toName: string) => {
+    const orderedNames = normalizeNames(names);
+    const fromIndex = orderedNames.indexOf(fromName);
+    const toIndex = orderedNames.indexOf(toName);
+
+    if (fromIndex < 0 || toIndex < 0 || fromIndex === toIndex) {
+      return orderedNames;
+    }
+
+    const nextNames = orderedNames.slice();
+    const [movedName] = nextNames.splice(fromIndex, 1);
+    nextNames.splice(toIndex, 0, movedName);
+    return nextNames;
+  };
+
+  const moveNameByOffset = (name: string, offset: -1 | 1) => {
+    const orderedNames = normalizeNames(getNames());
+    const currentIndex = orderedNames.indexOf(name);
+    if (currentIndex < 0) return;
+
+    const nextIndex = clamp(currentIndex + offset, 0, orderedNames.length - 1);
+    if (nextIndex === currentIndex) return;
+
+    const nextNames = orderedNames.slice();
+    const [movedName] = nextNames.splice(currentIndex, 1);
+    nextNames.splice(nextIndex, 0, movedName);
+    setInputNames(nextNames, 'manual');
+    showToast('참여자 순서를 바꿨어요.');
+    track('participant_reordered', { participant_count: nextNames.length });
+  };
+
+  const clearDropTargetState = () => {
+    elements.namePreview.querySelectorAll('.name-preview-item').forEach((item) => {
+      item.classList.remove('is-drop-target', 'is-dragging');
+    });
+  };
 
   const getWinnerRank = (count: number) => {
     if (state.winnerMode === 'last') return count;
@@ -312,6 +491,7 @@ export function bootstrapApp(roulette: Roulette) {
     const valid = names.length >= 1;
     const rank = getWinnerRank(names.length || 1);
 
+    renderNamePreview(names);
     elements.participantCount.textContent = countLabel(names.length);
     elements.startButton.disabled = !valid || state.engineState !== 'ready';
 
@@ -353,10 +533,7 @@ export function bootstrapApp(roulette: Roulette) {
       button.className = 'preset-chip';
       button.innerHTML = `<strong>${preset.label}</strong><span>${countLabel(preset.names.length)} 구성</span>`;
       button.addEventListener('click', () => {
-        elements.input.value = preset.names.join('\n');
-        state.inputSource = 'preset';
-        persistText();
-        updateFormState();
+        setInputNames(preset.names, 'preset');
         showToast('최근 구성을 불러왔어요.');
         track('preset_applied', { preset_size: preset.names.length });
       });
@@ -483,8 +660,7 @@ export function bootstrapApp(roulette: Roulette) {
 
     try {
       if (source === 'compose') {
-        elements.input.value = normalizedNames.join('\n');
-        persistText();
+        setInputNames(normalizedNames, state.inputSource);
         savePreset(normalizedNames);
       }
 
@@ -539,8 +715,7 @@ export function bootstrapApp(roulette: Roulette) {
     state.drawErrorMessage = '';
 
     if (state.activeNames.length) {
-      elements.input.value = state.activeNames.join('\n');
-      persistText();
+      setInputNames(state.activeNames, 'manual');
     }
 
     if (state.engineState === 'ready') {
@@ -560,11 +735,11 @@ export function bootstrapApp(roulette: Roulette) {
     const nextRank = clamp(getWinnerRank(count) + delta, 1, Math.max(count, 1));
     elements.customRankInput.value = String(nextRank);
     updateFormState();
-    track('custom_rank_changed', { rank: nextRank, participant_count: getNames().length });
+    track('custom_rank_changed', {
+      rank: nextRank,
+      participant_count: getNames().length,
+    });
   };
-
-  const initialText = readStoredValue(STORAGE_KEYS.names) ?? '';
-  elements.input.value = initialText;
 
   roulette.getMaps().forEach((map) => {
     const option = document.createElement('option');
@@ -580,18 +755,20 @@ export function bootstrapApp(roulette: Roulette) {
   }
 
   renderPresets();
+  bannerAdController.initialize();
+  window.addEventListener('beforeunload', bannerAdController.destroy);
   setWinnerMode(state.winnerMode, false);
   updateFormState();
   switchScreen('compose');
 
   track('compose_viewed', {
-    has_saved_names: initialText.trim().length > 0,
+    has_saved_names: state.draftNames.length > 0,
     preset_count: state.recentPresets.length,
   });
 
-  if (initialText.trim()) {
+  if (state.draftNames.length) {
     track('participants_loaded', {
-      count: getNames().length,
+      count: state.draftNames.length,
       source: 'restored',
     });
   }
@@ -635,20 +812,119 @@ export function bootstrapApp(roulette: Roulette) {
     }, 720);
   });
 
-  elements.input.addEventListener('input', () => {
-    state.inputSource = 'manual';
-    persistText();
-    updateFormState();
+  elements.quickAddButton.addEventListener('click', addQuickName);
+
+  elements.quickEditCancelButton.addEventListener('click', () => {
+    resetQuickEditor();
+    elements.quickAddInput.focus();
   });
 
-  elements.input.addEventListener('blur', () => {
-    const normalized = normalizeNames(getNames());
-    const nextValue = normalized.join('\n');
-    if (nextValue !== elements.input.value.trim()) {
-      elements.input.value = nextValue;
-      persistText();
+  elements.dedupeNamesButton.addEventListener('click', () => {
+    const currentNames = getNames();
+    const dedupedNames = normalizeNames(currentNames);
+
+    if (dedupedNames.join('\n') === getNames().join('\n')) {
+      showToast('이미 중복 없이 정리돼 있어요.');
+      return;
     }
-    updateFormState();
+
+    setInputNames(dedupedNames, 'manual');
+    showToast('중복 이름을 정리했어요.');
+    track('participants_deduped', { participant_count: dedupedNames.length });
+  });
+
+  elements.clearAllNamesButton.addEventListener('click', () => {
+    setInputNames([], 'manual');
+    resetQuickEditor();
+    showToast('참여자 목록을 비웠어요.');
+    track('participants_cleared');
+  });
+
+  elements.quickAddInput.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    addQuickName();
+  });
+
+  elements.namePreview.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target instanceof HTMLButtonElement && target.dataset.name) {
+      if (target.dataset.move === 'up') {
+        moveNameByOffset(target.dataset.name, -1);
+        return;
+      }
+
+      if (target.dataset.move === 'down') {
+        moveNameByOffset(target.dataset.name, 1);
+        return;
+      }
+
+      const nextNames = normalizeNames(getNames()).filter((name) => name !== target.dataset.name);
+      setInputNames(nextNames, 'manual');
+
+      if (state.editingName === target.dataset.name) {
+        resetQuickEditor();
+      }
+
+      showToast('참여자를 삭제했어요.');
+      track('participant_removed', { participant_count: nextNames.length });
+      return;
+    }
+
+    const item = target instanceof HTMLElement ? target.closest<HTMLElement>('.name-preview-item') : null;
+    const text = item?.querySelector<HTMLElement>('.name-preview-text')?.textContent?.trim();
+    if (!text) return;
+
+    startQuickEdit(text);
+  });
+
+  elements.namePreview.addEventListener('dragstart', (event) => {
+    const target = event.target;
+    const item = target instanceof HTMLElement ? target.closest<HTMLElement>('.name-preview-item') : null;
+    if (!item?.dataset.name || !(event instanceof DragEvent)) return;
+
+    draggedName = item.dataset.name;
+    item.classList.add('is-dragging');
+    event.dataTransfer?.setData('text/plain', draggedName);
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = 'move';
+    }
+  });
+
+  elements.namePreview.addEventListener('dragover', (event) => {
+    if (!(event instanceof DragEvent) || !draggedName) return;
+    const target = event.target;
+    const item = target instanceof HTMLElement ? target.closest<HTMLElement>('.name-preview-item') : null;
+    if (!item?.dataset.name || item.dataset.name === draggedName) return;
+
+    event.preventDefault();
+    clearDropTargetState();
+    item.classList.add('is-drop-target');
+  });
+
+  elements.namePreview.addEventListener('drop', (event) => {
+    if (!(event instanceof DragEvent) || !draggedName) return;
+    const target = event.target;
+    const item = target instanceof HTMLElement ? target.closest<HTMLElement>('.name-preview-item') : null;
+    const targetName = item?.dataset.name;
+    if (!targetName || targetName === draggedName) {
+      clearDropTargetState();
+      draggedName = null;
+      return;
+    }
+
+    event.preventDefault();
+    const nextNames = reorderNames(getNames(), draggedName, targetName);
+    setInputNames(nextNames, 'manual');
+    clearDropTargetState();
+    draggedName = null;
+    showToast('참여자 순서를 바꿨어요.');
+    track('participant_reordered', { participant_count: nextNames.length });
+  });
+
+  elements.namePreview.addEventListener('dragend', () => {
+    draggedName = null;
+    clearDropTargetState();
   });
 
   elements.clearPresetsButton.addEventListener('click', () => {
@@ -713,7 +989,9 @@ export function bootstrapApp(roulette: Roulette) {
   elements.returnComposeButton.addEventListener('click', resetToCompose);
 
   elements.editNamesButton.addEventListener('click', () => {
-    track('result_edit_tapped', { participant_count: state.activeNames.length });
+    track('result_edit_tapped', {
+      participant_count: state.activeNames.length,
+    });
     resetToCompose();
   });
 
@@ -743,7 +1021,9 @@ export function bootstrapApp(roulette: Roulette) {
     try {
       await copyText(payload);
       showToast('결과를 복사했어요.');
-      track('result_copied', { participant_count: state.activeResult.participantCount });
+      track('result_copied', {
+        participant_count: state.activeResult.participantCount,
+      });
     } catch {
       showToast('결과를 복사하지 못했어요.', 'error');
     }

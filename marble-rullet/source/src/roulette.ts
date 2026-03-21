@@ -462,7 +462,10 @@ export class Roulette extends EventTarget {
   }
 
   public getRanking() {
-    return [...this._winners, ...this._marbles].map((marble, index) => {
+    const winnerSet = new Set(this._winners);
+    const remaining = this._marbles.filter((marble) => !winnerSet.has(marble));
+
+    return [...this._winners, ...remaining].map((marble, index) => {
       return {
         rank: index + 1,
         name: marble.name,

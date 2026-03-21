@@ -127,8 +127,8 @@ export class RouletteRenderer {
     return this._keywordService.getSprite(name);
   }
 
-  protected onBeforeEntities(): void { }
-  protected onAfterScene(): void { }
+  protected onBeforeEntities(): void {}
+  protected onAfterScene(): void {}
 
   render(renderParameters: RenderParameters, uiObjects: UIObject[]) {
     this._theme = renderParameters.theme;

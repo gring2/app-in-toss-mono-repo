@@ -1,20 +1,20 @@
 {
-  "pid": 66166,
-  "parent_pid": 10215,
-  "started_at": "2026-03-16T11:21:22.564Z",
+  "pid": 22774,
+  "parent_pid": 96274,
+  "started_at": "2026-03-21T15:16:00.247Z",
   "cwd": "/Users/jinwoopark/app-in-toss-test/marble-rullet",
-  "notify_script": "/opt/homebrew/lib/node_modules/oh-my-codex/scripts/notify-hook.js",
-  "poll_ms": 250,
+  "notify_script": "/opt/homebrew/lib/node_modules/oh-my-codex/dist/scripts/notify-hook.js",
+  "poll_ms": 75,
   "pid_file": null,
   "max_lifetime_ms": 0,
-  "tracked_files": 1,
-  "seen_turns": 1,
+  "tracked_files": 0,
+  "seen_turns": 0,
   "dispatch_drain": {
     "enabled": true,
     "max_per_tick": 5,
     "run_count": 1,
     "leader_only": true,
-    "last_tick_at": "2026-03-16T11:21:22.668Z",
+    "last_tick_at": "2026-03-21T15:16:00.249Z",
     "last_result": {
       "processed": 0,
       "skipped": 0,
@@ -24,25 +24,25 @@
   },
   "leader_nudge": {
     "enabled": true,
-    "run_count": 1,
     "leader_only": true,
     "stale_threshold_ms": 180000,
-    "precomputed_leader_stale": false,
-    "last_tick_at": "2026-03-16T11:21:22.668Z",
-    "last_error": null
+    "precomputed_leader_stale": true,
+    "last_tick_at": "2026-03-21T15:16:00.250Z",
+    "last_error": null,
+    "run_count": 1
   },
   "ralph_continue_steer": {
     "enabled": true,
     "cadence_ms": 60000,
     "message": "Ralph loop active continue",
     "active": false,
-    "last_state_check_at": "2026-03-16T11:21:22.670Z",
-    "last_sent_at": "2026-03-15T12:39:02.036Z",
+    "last_state_check_at": "2026-03-21T15:16:00.251Z",
+    "last_sent_at": "",
     "last_reason": "terminal",
     "last_error": null,
-    "state_path": "/Users/jinwoopark/app-in-toss-test/marble-rullet/.omx/state/ralph-state.json",
-    "pane_id": "%25",
+    "state_path": "/Users/jinwoopark/app-in-toss-test/marble-rullet/.omx/state/sessions/omx-1774062815047-0uxm9a/ralph-state.json",
+    "pane_id": "",
     "pane_current_command": "",
-    "current_phase": "starting"
+    "current_phase": "verifying"
   }
 }

@@ -7,6 +7,7 @@
   <title>The Pinball | 핀볼 추첨</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="참여자를 빠르게 정리하고 공정하게 결과를 확인하는 모바일용 추첨 도구.">
+  <meta name="ait-ad-env" content="__AIT_AD_ENV__">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="stylesheet" href="assets/style.scss">
 </head>
@@ -21,17 +22,50 @@
 
       <div id="composeState" class="state-banner is-hidden" role="status" aria-live="polite"></div>
 
+      <section id="bannerAdSection" class="section banner-ad-section is-hidden" aria-hidden="true">
+        <div class="banner-ad-card">
+          <div id="bannerAdSlot" class="banner-ad-slot"></div>
+        </div>
+      </section>
+
       <section class="section">
         <div class="section-head">
           <div>
             <p class="section-label">참여자</p>
-            <h2>이름 목록</h2>
+            <h2>참여자 관리</h2>
           </div>
           <span id="participantCount" class="count-badge">0명</span>
         </div>
+        <div class="input-subsection">
+          <div class="input-subsection-head">
+            <p class="section-label">한 명씩 추가 / 수정</p>
+            <span class="input-subsection-copy">추가 · 수정 · 삭제 · 순서 변경</span>
+          </div>
+        <div class="quick-add-row">
+          <input
+            id="quickAddName"
+            class="quick-add-input"
+            type="text"
+            placeholder="한 명씩 빠르게 추가"
+            autocomplete="off"
+            enterkeyhint="done"
+          >
+          <button id="btnQuickAddName" type="button" class="secondary-btn quick-add-btn">추가</button>
+          <button id="btnCancelQuickEdit" type="button" class="ghost-btn quick-cancel-btn is-hidden">취소</button>
+        </div>
+        </div>
 
-        <textarea id="inNames" class="name-input" placeholder="줄바꿈이나 쉼표로 여러 명을 입력하세요&#10;예: 토스, 추첨/3, 검증*2"
-          spellcheck="false"></textarea>
+        <div class="name-preview-card" aria-live="polite">
+          <div class="name-preview-head">
+            <p class="section-label">참여자 카드</p>
+            <span id="namePreviewCount" class="preview-count">0명</span>
+          </div>
+          <div class="name-preview-actions">
+            <button id="btnDedupeNames" type="button" class="ghost-btn preview-action-btn">중복 정리</button>
+            <button id="btnClearAllNames" type="button" class="ghost-btn preview-action-btn">전체 비우기</button>
+          </div>
+          <ol id="namePreview" class="name-preview is-empty">이름을 입력하면 보기 쉬운 카드 형태로 정리돼요.</ol>
+        </div>
         <p id="inputHelper" class="helper-text">이름을 1명 이상 입력해 주세요.</p>
       </section>
 

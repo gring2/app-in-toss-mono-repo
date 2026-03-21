@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apps-in-Toss Ads Boilerplate"
+  short_description: "Generate runtime-first ads scaffolds for Toss miniapps"
+  default_prompt: "Create or update runtime-first Apps-in-Toss ads boilerplate with shared runtime config and per-ad-type modules for WebView or React Native miniapps."

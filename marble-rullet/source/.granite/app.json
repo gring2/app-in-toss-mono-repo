@@ -1,0 +1,9 @@
+{
+  "appName": "pinball-draw",
+  "permissions": [
+    {
+      "name": "clipboard",
+      "access": "write"
+    }
+  ]
+}

@@ -1,5 +1,9 @@
 import { defineConfig } from '@apps-in-toss/web-framework/config';
 
+const webHost = process.env.AIT_WEB_HOST ?? 'localhost';
+const devServerHost = webHost === 'localhost' ? 'localhost' : '192.168.35.2';
+const devAdEnv = process.env.AIT_AD_ENV ?? 'test';
+
 export default defineConfig({
   appName: 'pinball-draw',
   brand: {
@@ -8,11 +12,11 @@ export default defineConfig({
     icon: '',
   },
   web: {
-    host: 'localhost',
-    port: 1235,
+    host: webHost,
+    port: 5173,
     commands: {
-      dev: 'npm run dev',
-      build: 'npm run build',
+      dev: `node scripts/run-dev-preview-server.cjs ${devAdEnv} ${devServerHost} 5173`,
+      build: 'parcel build index.html --public-url ./',
     },
   },
   permissions: [
