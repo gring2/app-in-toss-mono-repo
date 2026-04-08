@@ -1,0 +1,7 @@
+[      59ms] [INFO] [the-rullet:event] compose_viewed {has_saved_names: false, preset_count: 0} @ http://127.0.0.1:4384/source.2547c5bd.js:11
+[      59ms] [LOG] localization loaded @ http://127.0.0.1:4384/source.2547c5bd.js:0
+[      59ms] [LOG] detected locale:  ko @ http://127.0.0.1:4384/source.2547c5bd.js:0
+[      81ms] [LOG] box2d ready @ http://127.0.0.1:4384/source.2547c5bd.js:11
+[   15225ms] [INFO] [the-rullet:event] participant_added {participant_count: 1} @ http://127.0.0.1:4384/source.2547c5bd.js:11
+[   22415ms] [INFO] [the-rullet:event] draw_started {participant_count: 1, mode: first, rank: 1, map_id: 0, used_preset: false} @ http://127.0.0.1:4384/source.2547c5bd.js:11
+[   37599ms] [INFO] [the-rullet:event] draw_completed {participant_count: 1, mode: first, rank: 1, duration_ms: 15186} @ http://127.0.0.1:4384/source.2547c5bd.js:11

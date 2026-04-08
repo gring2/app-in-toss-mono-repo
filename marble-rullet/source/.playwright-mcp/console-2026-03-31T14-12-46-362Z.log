@@ -1,0 +1,6 @@
+[      61ms] Error: Element not found: #confirmDialogCancel
+    at tW (http://127.0.0.1:4382/source.2cc63135.js:12:2090)
+    at http://127.0.0.1:4382/source.2cc63135.js:12:92936
+[      59ms] [LOG] localization loaded @ http://127.0.0.1:4382/source.2cc63135.js:0
+[      59ms] [LOG] detected locale:  ko @ http://127.0.0.1:4382/source.2cc63135.js:0
+[      98ms] [LOG] box2d ready @ http://127.0.0.1:4382/source.2cc63135.js:11

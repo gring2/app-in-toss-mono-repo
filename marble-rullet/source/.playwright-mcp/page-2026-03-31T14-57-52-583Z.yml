@@ -1,0 +1,8 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - generic [ref=e63]: 1명
+        - generic [ref=e65]: 1등
+      - button "편집" [ref=e66] [cursor=pointer]
+  - status: 참여자를 추가했어요.

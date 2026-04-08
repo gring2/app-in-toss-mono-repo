@@ -4,9 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>The Pinball | 핀볼 추첨</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="참여자를 빠르게 정리하고 공정하게 결과를 확인하는 모바일용 추첨 도구.">
+  <title>Pinballdraw | 핀볼뽑기</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+  >
+  <meta name="description" content="참여자를 빠르게 정리하고, 공정하게 결과를 확인하는 모바일용 추첨 도구.">
   <meta name="ait-ad-env" content="__AIT_AD_ENV__">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="stylesheet" href="assets/style.scss">
@@ -16,7 +19,7 @@
   <main class="app-shell" aria-live="polite">
     <section class="screen compose-screen" data-screen="compose">
       <header class="compose-header">
-        <h1>핀볼 추첨</h1>
+        <h1>핀볼뽑기</h1>
         <p class="subtitle">참여자를 정리하고, 공정한 결과를 빠르게 확인하세요.</p>
       </header>
 
@@ -129,16 +132,6 @@
           </div>
           <button id="btnExitDraw" type="button" class="ghost-btn on-dark">편집</button>
         </div>
-
-        <div id="drawStateCard" class="draw-card" role="status" aria-live="polite">
-          <p id="drawEyebrow" class="eyebrow on-dark">Draw</p>
-          <h2 id="drawHeadline">추첨 준비 중이에요</h2>
-          <p id="drawSubline">결과는 자동으로 열려요.</p>
-          <div id="drawErrorActions" class="draw-actions is-hidden">
-            <button id="btnRetryDraw" type="button" class="primary-btn">다시 시도</button>
-            <button id="btnReturnCompose" type="button" class="ghost-btn on-dark">참여자 편집</button>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -167,6 +160,43 @@
       </section>
     </section>
   </main>
+
+  <div
+    id="confirmDialog"
+    class="confirm-dialog is-hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="confirmDialogTitle"
+    aria-describedby="confirmDialogDescription"
+  >
+    <button
+      id="confirmDialogOverlay"
+      type="button"
+      class="confirm-dialog__backdrop"
+      data-dialog-dismiss="true"
+      aria-label="확인 창 닫기"
+    ></button>
+    <div id="confirmDialogPanel" class="confirm-dialog__panel" role="document" tabindex="-1">
+      <p class="confirm-dialog__eyebrow">확인</p>
+      <h2 id="confirmDialogTitle" class="confirm-dialog__title">편집으로 돌아갈까요?</h2>
+      <p id="confirmDialogDescription" class="confirm-dialog__description">
+        진행 중인 추첨은 중단되고 현재 결과는 저장되지 않아요.
+      </p>
+      <div class="confirm-dialog__actions">
+        <button id="confirmDialogCancelButton" type="button" class="secondary-btn confirm-dialog__button">
+          계속 추첨
+        </button>
+        <button
+          id="confirmDialogConfirmButton"
+          type="button"
+          class="primary-btn confirm-dialog__button confirm-dialog__confirm"
+        >
+          나가기
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 

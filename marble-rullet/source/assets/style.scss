@@ -30,10 +30,15 @@ body {
   margin: 0;
   background: var(--app-bg);
   color: var(--text);
+  touch-action: manipulation;
 }
 
 body {
   position: relative;
+}
+
+body.has-modal {
+  overflow: hidden;
 }
 
 body.mode-draw {
@@ -647,10 +652,7 @@ h2 {
 }
 
 .draw-overlay {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: calc(100svh - max(20px, env(safe-area-inset-top)) - 20px - env(safe-area-inset-bottom));
+  min-height: calc(100svh - max(20px, env(safe-area-inset-top)) - 20px);
   padding: 4px 0 env(safe-area-inset-bottom);
 }
 
@@ -675,46 +677,6 @@ h2 {
   height: 4px;
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.3);
-}
-
-.draw-card {
-  align-self: flex-start;
-  max-width: 380px;
-  border-radius: 20px;
-  border: 3px solid var(--panel-strong);
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--panel-strong);
-  padding: 24px 20px;
-  box-shadow: 0 8px 0 var(--panel-strong);
-  backdrop-filter: blur(10px);
-}
-
-.draw-card.is-error {
-  border-color: var(--danger);
-  background: rgba(254, 242, 242, 0.95);
-}
-
-.draw-card .eyebrow.on-dark {
-  color: var(--muted-strong);
-  /* Removed on-dark to match light glassy style */
-}
-
-.draw-card h2 {
-  margin: 6px 0 8px;
-  font-size: 1.6rem;
-  font-weight: 900;
-  line-height: 1.2;
-}
-
-.draw-card p:last-child {
-  margin-bottom: 0;
-  font-weight: 700;
-}
-
-.draw-actions {
-  display: grid;
-  gap: 10px;
-  margin-top: 16px;
 }
 
 .result-hero {
@@ -816,6 +778,77 @@ h2 {
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
+.confirm-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+}
+
+.confirm-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.56);
+  backdrop-filter: blur(6px);
+}
+
+.confirm-dialog__panel {
+  position: relative;
+  width: min(100%, 360px);
+  border-radius: 28px;
+  border: 3px solid var(--panel-strong);
+  background: var(--panel);
+  box-shadow: 0 12px 0 var(--panel-strong);
+  padding: 28px 22px 22px;
+}
+
+.confirm-dialog__eyebrow {
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.confirm-dialog__title {
+  margin: 10px 0 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.confirm-dialog__description {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.confirm-dialog__actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.confirm-dialog__button {
+  min-height: 56px;
+  font-size: 1rem;
+}
+
+.confirm-dialog[data-tone='danger'] .confirm-dialog__confirm {
+  background: #ffe2e2;
+  border-color: #b42318;
+  color: #7a271a;
+  box-shadow: 0 6px 0 #b42318;
+}
+
+.confirm-dialog[data-tone='danger'] .confirm-dialog__confirm:active:not(:disabled) {
+  box-shadow: 0 0 0 #b42318;
+}
+
 .toast.is-visible {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
@@ -889,6 +922,11 @@ h2 {
 
   .quick-cancel-btn {
     grid-column: 1 / -1;
+  }
+
+  .confirm-dialog {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 

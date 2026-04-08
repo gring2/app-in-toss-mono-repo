@@ -27,8 +27,14 @@ export type BannerAdGroupConfig = {
   source: 'default' | 'env';
 };
 
+const PLACEHOLDER_TOKEN_PATTERN = /^__.+__$/;
+
 function normalizeConfiguredAdEnv(value: string | undefined) {
   const normalized = value?.trim().toLowerCase();
+
+  if (!normalized || PLACEHOLDER_TOKEN_PATTERN.test(normalized)) {
+    return undefined;
+  }
 
   if (normalized === 'live') {
     return 'live' as const;
@@ -48,6 +54,14 @@ export function resolveBannerAdGroupConfig(): BannerAdGroupConfig {
   const envAdEnv = typeof process !== 'undefined' ? process?.env?.AIT_AD_ENV : undefined;
   const configuredAdEnv = normalizeConfiguredAdEnv(metaAdEnv) ?? normalizeConfiguredAdEnv(envAdEnv);
 
+  if (configuredAdEnv === 'test') {
+    return {
+      adEnv: 'test',
+      adGroupId: adGroupIds.banner.test,
+      source: 'env',
+    };
+  }
+
   if (configuredAdEnv === 'live') {
     return {
       adEnv: 'live',
@@ -57,8 +71,8 @@ export function resolveBannerAdGroupConfig(): BannerAdGroupConfig {
   }
 
   return {
-    adEnv: 'test',
-    adGroupId: adGroupIds.banner.test,
-    source: configuredAdEnv ? 'env' : 'default',
+    adEnv: 'live',
+    adGroupId: adGroupIds.banner.live,
+    source: 'default',
   };
 }

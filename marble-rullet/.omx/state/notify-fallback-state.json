@@ -1,7 +1,7 @@
 {
-  "pid": 22774,
-  "parent_pid": 96274,
-  "started_at": "2026-03-21T15:16:00.247Z",
+  "pid": 8943,
+  "parent_pid": 82815,
+  "started_at": "2026-03-22T18:08:42.006Z",
   "cwd": "/Users/jinwoopark/app-in-toss-test/marble-rullet",
   "notify_script": "/opt/homebrew/lib/node_modules/oh-my-codex/dist/scripts/notify-hook.js",
   "poll_ms": 75,
@@ -14,7 +14,7 @@
     "max_per_tick": 5,
     "run_count": 1,
     "leader_only": true,
-    "last_tick_at": "2026-03-21T15:16:00.249Z",
+    "last_tick_at": "2026-03-22T18:08:42.008Z",
     "last_result": {
       "processed": 0,
       "skipped": 0,
@@ -27,7 +27,7 @@
     "leader_only": true,
     "stale_threshold_ms": 180000,
     "precomputed_leader_stale": true,
-    "last_tick_at": "2026-03-21T15:16:00.250Z",
+    "last_tick_at": "2026-03-22T18:08:42.008Z",
     "last_error": null,
     "run_count": 1
   },
@@ -36,7 +36,7 @@
     "cadence_ms": 60000,
     "message": "Ralph loop active continue",
     "active": false,
-    "last_state_check_at": "2026-03-21T15:16:00.251Z",
+    "last_state_check_at": "2026-03-22T18:08:42.009Z",
     "last_sent_at": "",
     "last_reason": "terminal",
     "last_error": null,

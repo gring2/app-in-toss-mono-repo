@@ -1,6 +1,7 @@
 import { createWebviewBannerAdController } from './ads/webview/banner/service';
 import options from './options';
 import type { Roulette, RouletteLeaderboardEntry } from './roulette';
+import { createConfirmDialogController } from './ui/confirm-dialog';
 import { parseName } from './utils/utils';
 
 type WinnerMode = 'first' | 'last' | 'custom';
@@ -137,20 +138,18 @@ export function bootstrapApp(roulette: Roulette) {
     clearPresetsButton: qs<HTMLButtonElement>('#btnClearPresets'),
     drawStatusCount: qs<HTMLElement>('#drawStatusCount'),
     drawStatusMode: qs<HTMLElement>('#drawStatusMode'),
-    drawStateCard: qs<HTMLElement>('#drawStateCard'),
-    drawEyebrow: qs<HTMLElement>('#drawEyebrow'),
-    drawHeadline: qs<HTMLElement>('#drawHeadline'),
-    drawSubline: qs<HTMLElement>('#drawSubline'),
-    drawErrorActions: qs<HTMLElement>('#drawErrorActions'),
     exitDrawButton: qs<HTMLButtonElement>('#btnExitDraw'),
-    retryDrawButton: qs<HTMLButtonElement>('#btnRetryDraw'),
-    returnComposeButton: qs<HTMLButtonElement>('#btnReturnCompose'),
     resultWinner: qs<HTMLElement>('#resultWinner'),
     resultMeta: qs<HTMLElement>('#resultMeta'),
     resultList: qs<HTMLOListElement>('#resultList'),
     rankingCount: qs<HTMLElement>('#rankingCount'),
     bannerAdSection: qs<HTMLElement>('#bannerAdSection'),
     bannerAdSlot: qs<HTMLElement>('#bannerAdSlot'),
+    confirmDialog: qs<HTMLElement>('#confirmDialog'),
+    confirmDialogTitle: qs<HTMLElement>('#confirmDialogTitle'),
+    confirmDialogDescription: qs<HTMLElement>('#confirmDialogDescription'),
+    confirmDialogCancelButton: qs<HTMLButtonElement>('#confirmDialogCancelButton'),
+    confirmDialogConfirmButton: qs<HTMLButtonElement>('#confirmDialogConfirmButton'),
     rerunButton: qs<HTMLButtonElement>('#btnRerun'),
     editNamesButton: qs<HTMLButtonElement>('#btnEditNames'),
     copyResultButton: qs<HTMLButtonElement>('#btnCopyResult'),
@@ -241,9 +240,20 @@ export function bootstrapApp(roulette: Roulette) {
     track,
   });
 
+  const confirmDialogController = createConfirmDialogController({
+    elements: {
+      root: elements.confirmDialog,
+      title: elements.confirmDialogTitle,
+      description: elements.confirmDialogDescription,
+      cancelButton: elements.confirmDialogCancelButton,
+      confirmButton: elements.confirmDialogConfirmButton,
+    },
+  });
+
   const switchScreen = (screen: 'compose' | 'draw' | 'result') => {
     elements.body.classList.remove('mode-compose', 'mode-draw', 'mode-result');
     elements.body.classList.add(`mode-${screen}`);
+    confirmDialogController.close();
 
     bannerAdController.onScreenChange(screen);
   };
@@ -578,27 +588,7 @@ export function bootstrapApp(roulette: Roulette) {
   const updateDrawState = () => {
     elements.drawStatusCount.textContent = countLabel(state.activeNames.length);
     elements.drawStatusMode.textContent = modeLabelCompact(state.activeNames.length);
-    elements.drawStateCard.classList.toggle('is-error', state.drawPhase === 'error');
-    elements.drawErrorActions.classList.toggle('is-hidden', state.drawPhase !== 'error');
     elements.exitDrawButton.disabled = state.drawPhase === 'loading';
-
-    if (state.drawPhase === 'error') {
-      elements.drawEyebrow.textContent = 'Error';
-      elements.drawHeadline.textContent = '추첨을 시작하지 못했어요';
-      elements.drawSubline.textContent = state.drawErrorMessage || '다시 시도하거나 참여자 목록으로 돌아가 주세요.';
-      return;
-    }
-
-    elements.drawEyebrow.textContent = 'Draw';
-
-    if (state.drawPhase === 'loading') {
-      elements.drawHeadline.textContent = '추첨 준비 중이에요';
-      elements.drawSubline.textContent = '공정한 추첨 화면을 정리하고 있어요.';
-      return;
-    }
-
-    elements.drawHeadline.textContent = '추첨 중이에요';
-    elements.drawSubline.textContent = '결과는 자동으로 열려요.';
   };
 
   const renderResult = (snapshot: ResultSnapshot) => {
@@ -634,9 +624,8 @@ export function bootstrapApp(roulette: Roulette) {
     state.isRunning = false;
     state.drawPhase = 'error';
     state.drawErrorMessage = message;
-    switchScreen('draw');
-    updateDrawState();
     showToast(message, 'error');
+    resetToCompose();
   };
 
   const beginDraw = (source: 'compose' | 'rerun') => {
@@ -713,6 +702,7 @@ export function bootstrapApp(roulette: Roulette) {
     state.isRunning = false;
     state.drawPhase = 'idle';
     state.drawErrorMessage = '';
+    confirmDialogController.close();
 
     if (state.activeNames.length) {
       setInputNames(state.activeNames, 'manual');
@@ -966,27 +956,35 @@ export function bootstrapApp(roulette: Roulette) {
     }
 
     const elapsedMs = Math.round(performance.now() - state.lastDrawStartedAt);
-    if (!state.isRunning || window.confirm('추첨을 멈추고 참여자 편집으로 돌아갈까요?')) {
+    if (!state.isRunning) {
       track('draw_cancelled', { reason: 'user_exit', elapsed_ms: elapsedMs });
       resetToCompose();
-    }
-  });
-
-  elements.retryDrawButton.addEventListener('click', () => {
-    if (state.engineState !== 'ready') {
-      window.location.reload();
       return;
     }
 
-    if (state.activeNames.length) {
-      beginDraw('rerun');
-      return;
-    }
+    track('draw_cancel_dialog_opened', {
+      participant_count: state.activeNames.length,
+      elapsed_ms: elapsedMs,
+    });
 
-    beginDraw('compose');
+    confirmDialogController.open({
+      title: '편집으로 돌아갈까요?',
+      description: '진행 중인 추첨은 중단되고 현재 화면의 결과는 저장되지 않아요.',
+      cancelText: '계속 추첨',
+      confirmText: '나가기',
+      onCancel: () => {
+        track('draw_cancel_dialog_dismissed', {
+          participant_count: state.activeNames.length,
+          elapsed_ms: elapsedMs,
+        });
+        elements.exitDrawButton.focus();
+      },
+      onConfirm: () => {
+        track('draw_cancelled', { reason: 'user_exit', elapsed_ms: elapsedMs });
+        resetToCompose();
+      },
+    });
   });
-
-  elements.returnComposeButton.addEventListener('click', resetToCompose);
 
   elements.editNamesButton.addEventListener('click', () => {
     track('result_edit_tapped', {
@@ -1011,7 +1009,7 @@ export function bootstrapApp(roulette: Roulette) {
       (entry) => `${entry.rank}. ${entry.name}${entry.isWinner ? ' ← 선정' : ''}`
     );
     const payload = [
-      '핀볼 추첨 결과',
+      '핀볼뽑기 결과',
       `선정: ${state.activeResult.winner?.name ?? '-'}`,
       `기준: ${state.activeResult.selectedRank}등 / ${countLabel(state.activeResult.participantCount)}`,
       '',

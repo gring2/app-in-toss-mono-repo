@@ -19,7 +19,8 @@
     "lint": "biome check --fix src/",
     "dev": "granite dev",
     "build": "ait build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node tests/submission-fixes.test.cjs"
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^2.0.9",
